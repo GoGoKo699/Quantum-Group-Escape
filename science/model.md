@@ -60,13 +60,13 @@ The algorithm receives an arbitrary state on $`\mathcal H`$ and implements a com
 Throughout this repository the error is the **unhalved diamond norm**:
 
 ```math
-\|\widetilde\Phi_{\pi}-\Phi_{\pi,\mu}\|_{\diamond}
+\lVert \widetilde\Phi_{\pi}-\Phi_{\pi,\mu}\rVert _{\diamond}
  \leq \varepsilon.
 ```
 
 The maximum distance between channels in this convention is two. For any input state, any reference, and any final measurement event, this norm bound changes that event's probability by at most $`\varepsilon/2`$. Indeed, the output-state difference is Hermitian with trace zero, so its largest measurement bias is half its trace norm.
 
-The quantile theorem is stated for $`0\leq\varepsilon<1`$. Exact simulation is included by setting $`\varepsilon=0`$. The strict inequality in the lower theorem's escape condition is material at a quantile boundary.
+The quantile theorem is stated for $`0\leq\varepsilon\lt 1`$. Exact simulation is included by setting $`\varepsilon=0`$. The strict inequality in the lower theorem's escape condition is material at a quantile boundary.
 
 ## Worst-case query cost and its dimension quantifier
 
@@ -111,7 +111,7 @@ Thus the endpoint is known classical randomness, while applying its represented 
 The information-theoretic query theorem first treats $`\mu`$ as an exact mathematical law and permits exact known classical randomization. A finite classical description can instead specify a law $`\widehat\mu`$ with a certified total-variation error
 
 ```math
-\|\widehat\mu-\mu\|_{\mathrm{TV}}
+\lVert \widehat\mu-\mu\rVert _{\mathrm{TV}}
  =\frac12\sum_{g\in G}|\widehat\mu(g)-\mu(g)|\leq\delta.
 ```
 

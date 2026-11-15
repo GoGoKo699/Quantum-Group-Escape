@@ -43,7 +43,7 @@ Its exact word length for $`S`$ is
 
 ```math
 |g|_S=W(g)+2(v-u)-|k|.
-\tag{1}
+\qquad (1)
 ```
 
 Every word must perform at least $`|\eta(x)|`$ updates at each lamp. Its cursor path must start at zero, visit both extreme required sites, and finish at $`k`$. Visiting the left extreme first costs $`2(v-u)-k`$ movement steps; visiting the right extreme first costs $`2(v-u)+k`$. Their minimum gives the travel term in (1). Conversely, perform the necessary signed lamp updates along a minimizing route. This attains the lower bound and proves the formula.
@@ -52,7 +52,7 @@ If $`R_t`$ is the number of sites visited by the entire cursor path up to time $
 
 ```math
 W(G_t)\le |G_t|_S\le W(G_t)+2(R_t-1).
-\tag{2}
+\qquad (2)
 ```
 
 Thus a classical endpoint and its word can be obtained by recording net lamp counts and two cursor extremes. This compression reduces the number of supplied-unitary calls; generating the complete random trajectory still takes expected order $`t`$ classical steps.
@@ -77,7 +77,7 @@ The final lamps $`Z_x=\eta_t(x)`$ are conditionally independent. Each is the dif
 \mathbb E[Z_x^2\mid X]=\lambda_x,
 \qquad
 \mathbb E[Z_x^4\mid X]=3\lambda_x^2+\lambda_x.
-\tag{3}
+\qquad (3)
 ```
 
 All independence assertions in this page are conditional on the cursor path. The occupation times themselves are correlated.
@@ -88,7 +88,7 @@ The cursor is a martingale with $`\mathbb E X_t^2=t/2`$. Doob's inequality and $
 
 ```math
 \mathbb E R_t\le 2\sqrt{2t}+1\le4\sqrt t.
-\tag{4}
+\qquad (4)
 ```
 
 Put $`W_t=\sum_x|Z_x|`$. Conditional Cauchy–Schwarz gives
@@ -107,16 +107,16 @@ Consequently,
 \mathbb E|G_t|_S
 \le\sqrt2\,t^{3/4}+8\sqrt t
 \le10t^{3/4}.
-\tag{5}
+\qquad (5)
 ```
 
-For every $`0<\alpha<1`$, Markov's inequality therefore supplies the explicit upper quantile
+For every $`0\lt \alpha\lt 1`$, Markov's inequality therefore supplies the explicit upper quantile
 
 ```math
 \Pr\!\left\{|G_t|_S>\frac{10}{\alpha}t^{3/4}\right\}
 \le\alpha
 \qquad(t\ge1).
-\tag{6}
+\qquad (6)
 ```
 
 This is a bounded-query cap after replacing the tail by an ordinary output channel. It does not use postselection.
@@ -146,16 +146,16 @@ The bound follows, for example, from $`1-\cos\theta\ge2\theta^2/\pi^2`$ on this 
 &=\frac12\int_0^t(t-u)\Pr\{X_u=0\}\,du
 \le\frac43t^{3/2}.
 \end{aligned}
-\tag{7}
+\qquad (7)
 ```
 
-Fix $`0<\delta<1/3`$. Equations (4) and (7) imply that, with probability at least $`1-2\delta`$ over the cursor,
+Fix $`0\lt \delta\lt 1/3`$. Equations (4) and (7) imply that, with probability at least $`1-2\delta`$ over the cursor,
 
 ```math
 I_t\le\frac{4}{3\delta}t^{3/2},
 \qquad
 R_t\le\frac4\delta\sqrt t.
-\tag{8}
+\qquad (8)
 ```
 
 ### Conditional mean and variance
@@ -166,7 +166,7 @@ Hölder's inequality yields
 \sum_x\sqrt{\lambda_x}
 \ge\frac{(\sum_x\lambda_x)^{3/2}}
 {\sqrt{\sum_x\lambda_x^2}}.
-\tag{9}
+\qquad (9)
 ```
 
 On the cursor event (8), its right side is at least $`a_\delta t^{3/4}`$, where
@@ -190,7 +190,7 @@ With $`c_0=1/(16\sqrt2)`$, it follows for every $`\lambda\ge0`$ that
 \mathbb E|Z|\ge c_0\sqrt\lambda-c_0.
 ```
 
-The subtraction makes the last inequality valid also for $`0\le\lambda<1`$. Hence the conditional mean obeys
+The subtraction makes the last inequality valid also for $`0\le\lambda\lt 1`$. Hence the conditional mean obeys
 
 ```math
 \mu(X):=\mathbb E[W_t\mid X]
@@ -198,7 +198,7 @@ The subtraction makes the last inequality valid also for $`0\le\lambda<1`$. Henc
 \ge k_\delta t^{3/4},
 \qquad
 k_\delta=\frac{c_0a_\delta}{2},
-\tag{10}
+\qquad (10)
 ```
 
 provided $`t\ge(2b_\delta/a_\delta)^4`$. Conditional independence and (3) give
@@ -211,10 +211,10 @@ provided $`t\ge(2b_\delta/a_\delta)^4`$. Conditional independence and (3) give
 Thus, on (8),
 
 ```math
-\Pr\{W_t<\mu(X)/2\mid X\}
+\Pr\{W_t\lt \mu(X)/2\mid X\}
 \le\frac{2t}{\mu(X)^2}
 \le\frac{2}{k_\delta^2\sqrt t}.
-\tag{11}
+\qquad (11)
 ```
 
 Define the finite, conservative threshold
@@ -234,19 +234,19 @@ Combining (8)–(11) with (2) proves
 \Pr\{|G_t|_S\ge c_\delta t^{3/4}\}
 \ge1-3\delta
 \qquad(t\ge T_\delta).
-\tag{12}
+\qquad (12)
 ```
 
 These constants prove existence of a finite threshold. They are not a numerical estimate of a useful simulation crossover. Equations (6) and (12) establish the fixed upper and lower quantile orders required by the quantum theorem.
 
 ## 6. Quantum consequence and resource scope
 
-Choose the finite quotients and coupling error as in [Finite quotients](finite-quotients.md). For every fixed $`0<\epsilon\le1/100`$, the worst-case query complexity over their unknown finite-dimensional representations satisfies
+Choose the finite quotients and coupling error as in [Finite quotients](finite-quotients.md). For every fixed $`0\lt \epsilon\le1/100`$, the worst-case query complexity over their unknown finite-dimensional representations satisfies
 
 ```math
 Q_{G_t}(t,\epsilon)=\Theta_\epsilon(t^{3/4})
 \qquad(t\longrightarrow\infty).
-\tag{13}
+\qquad (13)
 ```
 
 The upper bound simulates the full trace-preserving channel, including arbitrary reference systems. The lower bound applies to arbitrary coherent and adaptive query algorithms, using a representation on a finite regular-register space and an answer qubit. It is not restricted to algorithms that explicitly follow a trajectory.

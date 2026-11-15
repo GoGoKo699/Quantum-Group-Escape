@@ -5,7 +5,7 @@ The simulation theorem counts **serial calls to unknown represented generators**
 Throughout, the channel error is the unhalved diamond norm. For probability laws $`\mu,\nu`$ on a known finite group and any unitary representation $`\pi`$,
 
 ```math
-\left\|\sum_g(\mu(g)-\nu(g))\mathrm{Ad}_{\pi(g)}\right\|_\diamond
+\left\lVert \sum_g(\mu(g)-\nu(g))\mathrm{Ad}_{\pi(g)}\right\rVert _\diamond
 \leq \sum_g|\mu(g)-\nu(g)|
 =2\mathrm{TV}(\mu,\nu).
 ```
@@ -28,7 +28,7 @@ Known group multiplication and word computation are classical tasks. A generic f
 
 For the rate-one continuous-time walk, sample $`J\sim\mathrm{Pois}(t)`$, then independently sample $`J`$ generator labels with distribution $`p`$ and multiply them classically. The endpoint law is the convolution-semigroup law used in the theorem.
 
-To make the classical event count bounded as well, choose $`0<\delta_{\rm P}<1`$ and
+To make the classical event count bounded as well, choose $`0\lt \delta_{\rm P}\lt 1`$ and
 
 ```math
 B=\left\lceil2t+2\ln(1/\delta_{\rm P})\right\rceil.
@@ -70,12 +70,12 @@ If the represented time is $`\widetilde t`$, couple the two Poisson processes to
 
 Time rounding can therefore be included in the scalar sampling budget. For a nonunit total jump rate, rescale time before using this bound.
 
-A concrete allocation for target error $`0<\epsilon<1`$ is
+A concrete allocation for target error $`0\lt \epsilon\lt 1`$ is
 
 | Contribution | Required bound | Diamond contribution |
 |---|---:|---:|
 | Poisson overflow | $`\Pr[J>B]\leq\epsilon/8`$ | $`\epsilon/4`$ |
-| Long compiled word, without overflow | $`\Pr[J\leq B,\ |w(X_t)|>q]\leq\epsilon/8`$ | $`\epsilon/4`$ |
+| Long compiled word, without overflow | $`\Pr[J\leq B,\ \lvert w(X_t)\rvert>q]\leq\epsilon/8`$ | $`\epsilon/4`$ |
 | All scalar sampling and time errors together | total variation at most $`\epsilon/8`$ | $`\epsilon/4`$ |
 | Implemented generator words | total channel error at most $`\epsilon/4`$ | $`\epsilon/4`$ |
 

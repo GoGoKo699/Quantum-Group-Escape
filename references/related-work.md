@@ -15,7 +15,7 @@ is background rather than a discovery of this project. The present question conc
 
 ## Intermediate fast-forwarding exponents are already known
 
-Gao, Ji, and Liu [2] give Hamiltonian-twirling simulation algorithms and matching lower bounds, including $`\Theta(t^{1/\alpha})`$ behavior for $`1<\alpha\le2`$. Thus a three-quarter exponent is not, by itself, new. Their algorithmic twirls average $`e^{iHs}`$ for one Hamiltonian $`H`$; see Eq. (1), the Schur-channel form in Eq. (2), and Appendix B.1. Their stable examples use heavy-tailed scalar time distributions, while the compound-Poisson jumps are also functions of the same $`H`$.
+Gao, Ji, and Liu [2] give Hamiltonian-twirling simulation algorithms and matching lower bounds, including $`\Theta(t^{1/\alpha})`$ behavior for $`1\lt \alpha\le2`$. Thus a three-quarter exponent is not, by itself, new. Their algorithmic twirls average $`e^{iHs}`$ for one Hamiltonian $`H`$; see Eq. (1), the Schur-channel form in Eq. (2), and Appendix B.1. Their stable examples use heavy-tailed scalar time distributions, while the compound-Poisson jumps are also functions of the same $`H`$.
 
 Here the supplied primitives form a finite noncommuting generating alphabet. The wreath example obtains its exponent from the word geometry of bounded-rate elementary steps. The new comparison is between escape quantiles and arbitrary quantum generator-query algorithms, rather than a claim to the first intermediate exponent or the first twirling construction.
 

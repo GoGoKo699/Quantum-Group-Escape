@@ -338,7 +338,7 @@ The single educational anchor is Andrew M. Childs, [*Lecture Notes on Quantum Al
 
 **Central question:** Which parameters vary when the finite-group query theorem is applied at a growing requested time?
 
-**Understanding target:** Connect the Poisson event cap, equality of coupled endpoint distances, transferred tail margins and regular-register dimension. State the three-quarter query law for each fixed $`0<\varepsilon\leq1/100`$ along its specified family of finite groups, with the growing target width visible.
+**Understanding target:** Connect the Poisson event cap, equality of coupled endpoint distances, transferred tail margins and regular-register dimension. State the three-quarter query law for each fixed $`0\lt \varepsilon\leq1/100`$ along its specified family of finite groups, with the growing target width visible.
 
 **Dependencies and story role:** Requires M15, M20, M25, M26 and M27. It assembles the complete finite nonabelian consequence.
 

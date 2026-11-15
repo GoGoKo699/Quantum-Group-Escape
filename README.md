@@ -29,7 +29,7 @@ A nonabelian example uses four equal-rate unitary jumps: a cursor shift and its 
 ```math
 Q(t,\varepsilon)=\Theta_\varepsilon(t^{3/4})
 \qquad(t\longrightarrow\infty),
-\qquad0<\varepsilon\le1/100\text{ fixed}.
+\qquad0\lt \varepsilon\le1/100\text{ fixed}.
 ```
 
 The [occupation-time proof](science/wreath-product.md) establishes the required escape quantiles, and the [finite-quotient proof](science/finite-quotients.md) supplies finite groups, metric preservation and dimension bounds. The classical escape exponent and the existence of intermediate Lindblad simulation exponents are established antecedents; [related work](references/related-work.md) identifies the added oracle-level statement.

@@ -30,8 +30,8 @@ The maximum call count is two. There is no success condition or postselection, a
 Now impose a one-call cap. Replace the $`j=2`$ row by the identity and keep the other rows. This changes a set of classical choices of probability $`1/4`$. In the unhalved diamond convention used here,
 
 ```math
-\|\widetilde\Phi-\Phi\|_\diamond
-=\frac14\|\mathrm{Id}-\mathrm{Ad}_{U^2}\|_\diamond
+\lVert \widetilde\Phi-\Phi\rVert _\diamond
+=\frac14\lVert \mathrm{Id}-\mathrm{Ad}_{U^2}\rVert _\diamond
 \le\frac12.
 ```
 
@@ -73,12 +73,12 @@ The algebraic route does not require implementing a group Fourier transform. The
 |---|---|---|
 | Known finite group | $`G`$, generators $`S`$, identity $`e`$ | A classical algebraic specification |
 | Representation (written $`\sigma`$ in Childs §11.1) | $`\pi(g)`$ | Unknown unitary matrices respecting all group products |
-| Known left regular action | $`L_g|h\rangle=|gh\rangle`$ | A reference construction used in the converse |
+| Known left regular action | $`L_g\lvert h\rangle=\lvert gh\rangle`$ | A reference construction used in the converse |
 | Oracle input in the parity reduction | $`x=(x_1,\ldots,x_m)`$ | Hidden bits used to instantiate a hard representation |
 | One supplied query | controlled $`\mathrm{SELECT}_\pi`$ or its inverse | One charged call, including coherent generator selection |
 | Known endpoint law | $`\mu(g)`$ | Classical randomness, not an unknown-data loader |
 | Output channel | $`\Phi_{\pi,\mu}`$ | The transformation on every input and reference |
-| Word length | $`\ell(g)=|g|_S`$ | The fewest supplied generators needed to spell $`g`$ |
+| Word length | $`\ell(g)=\lvert g\rvert_S`$ | The fewest supplied generators needed to spell $`g`$ |
 
 A known multiplication table does not reveal the unknown matrices. Likewise, the mathematical existence of a basis change relating two representations does not make that change of basis a free gate. The lower bound exploits precisely this distinction: its common parity conjugation exists, but is not supplied to the simulator.
 

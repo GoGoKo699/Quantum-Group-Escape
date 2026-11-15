@@ -23,7 +23,7 @@
     {
       "path": "README.md",
       "index": 5,
-      "source_sha256": "2db94e3775beb63dde43840f41ac324b752c3630d335c164f81c7f85b4672c66",
+      "source_sha256": "e8aa5463af9a9af711991cdf53b31ff2f17f841feab6930028705c4fd0c3aa55",
       "required_text": [
         "Q(t,ε)=Θε(t3/4)",
         "0<ε≤1/100",
@@ -92,7 +92,7 @@
     {
       "path": "science/finite-quotients.md",
       "index": 41,
-      "source_sha256": "d3077af5f6f0eb48cec847b6657a68df999cf9aced810f5d2d227b78d67b5dd8",
+      "source_sha256": "ca82fbd0b1acab02eedbccb37655a49f8d69b5563d5d3168d308c6a9f037e6cd",
       "required_text": [
         "≤ε4+ε8<ε2"
       ]
@@ -100,7 +100,7 @@
     {
       "path": "science/finite-quotients.md",
       "index": 53,
-      "source_sha256": "2182d4746ed034eeb4ca66b8ef98a4c8fd401f97f9b0445647e0aec7c9936a4c",
+      "source_sha256": "8689dcb89bcef8d8f48eed22c1c30567134f34cffb7ee7ff5963041ca5b3a0df",
       "required_text": [
         "QGt(t,ε)=Θε(t3/4)",
         "0<ε≤1100",
@@ -111,7 +111,7 @@
     {
       "path": "science/finite-quotients.md",
       "index": 73,
-      "source_sha256": "049874340c75406234bde8d7190f7ac744e0319dfe646082a2d9fc8627e228ba",
+      "source_sha256": "418239cfc1d10a881d83674afde9650ebbbb5c2f204c15c436f38a280cd5fd09",
       "required_text": [
         "nt",
         "log2",
@@ -124,7 +124,7 @@
     {
       "path": "learning/childs-bridge.md",
       "index": 17,
-      "source_sha256": "9eb6dba648a0fdfeb7d52aea71bd95962e75b292ba1fe65fffb6963d85b9346f",
+      "source_sha256": "2b83f9dd716b13cbbf10e2d5f482bd1b30cfd0dfba344d3ad1e2c313ec33f153",
       "required_text": [
         "14",
         "Id",
