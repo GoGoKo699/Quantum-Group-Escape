@@ -1,0 +1,26 @@
+# Quantum Group Escape
+
+This repository studies full random-unitary channel simulation from an unknown unitary representation of a known finite group. Its oracle-query cost is bracketed by neighboring escape-distance quantiles. A bounded, four-generator nonabelian wreath family has three-quarter-power query scaling along growing finite quotients.
+
+## Authoritative routes
+
+- Scientific overview and principal claims: README.md
+- Connected proof reading order: science/README.md
+- Known group versus unknown representation; controlled SELECT/inverse access; unhalved diamond norm; hard branchwise query count and dimension quantifiers: science/model.md
+- General arbitrary-known-law quantile theorem and relation-preserving radial-prefix-parity lower proof: science/group-quantiles.md
+- Integer-lamp wreath group, exact line word length, conditional Skellam lamps, cursor occupation times and finite high escape quantiles: science/wreath-product.md
+- Explicit finite groups, kernel/metric-ball proof, Poisson coupling, asymptotic finite-family query law and target width: science/finite-quotients.md
+- Capped sampler, finite probability precision, query execution order, direct normal form, classical storage and physical oracle cost: science/algorithms-and-resources.md
+- Operational meaning and material scope: science/interpretation.md
+- Earlier group twirls, stable Hamiltonian twirls, accessible-gate depth, reflection word compression, classical escape and parity: references/related-work.md
+- Reproducible exact finite relations/gauge checks and floating channel diagnostics: verification/README.md and verification/check_finite_groups.py
+
+## Preserve these distinctions
+
+- The general result brackets epsilon and epsilon/2 escape quantiles; it is not an unrestricted expected-distance equivalence.
+- The representation is unknown and available through generator calls. The group relations are exact. A classical matrix description or richer arbitrary-power access changes the model.
+- The query cap holds on every branch. An expected-query frontier is a separate question.
+- The example's finite group and hard representation dimension grow with time. No fixed-dimension long-time power law is claimed.
+- The direct endpoint sampler has linear classical event work. Oracle-call fast forwarding does not establish an end-to-end runtime advantage.
+- Intermediate simulation exponents, group twirling and the classical wreath escape exponent have earlier sources. The added statement concerns representation-uniform generator-query optimality from group geometry.
+- The output is the reduced CPTP system channel, including arbitrary reference inputs. A specified coherent bath or jump record is a different task.
