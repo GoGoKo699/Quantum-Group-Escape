@@ -10,3 +10,5 @@ Start with the distinction between a known group and an unknown representation. 
 6. [Interpretation](interpretation.md) explains what the geometric principle establishes and how the output/access boundaries affect it.
 
 [Related work](../references/related-work.md) supplies attribution and the closest model-level comparisons. The [finite verification](../verification/README.md) supports algebraic conventions and implementations; it is separate from the proofs. Return to the [repository overview](../README.md) for the principal statements.
+
+For a guided entry, use the [Childs source bridge](../learning/childs-bridge.md) and [thirty-milestone map](../learning/milestones.md). They connect the selected algorithms notes to the same canonical account.

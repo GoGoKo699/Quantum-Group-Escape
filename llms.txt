@@ -6,6 +6,9 @@ This repository studies full random-unitary channel simulation from an unknown u
 
 - Scientific overview and principal claims: README.md
 - Connected proof reading order: science/README.md
+- Educational anchor: Andrew M. Childs, Lecture Notes on Quantum Algorithms, 17 April 2025; learning/README.md
+- Complete four-element example, source section locators and notation bridge: learning/childs-bridge.md
+- Thirty dependency-ordered background and innovation milestones: learning/milestones.md
 - Known group versus unknown representation; controlled SELECT/inverse access; unhalved diamond norm; hard branchwise query count and dimension quantifiers: science/model.md
 - General arbitrary-known-law quantile theorem and relation-preserving radial-prefix-parity lower proof: science/group-quantiles.md
 - Integer-lamp wreath group, exact line word length, conditional Skellam lamps, cursor occupation times and finite high escape quantiles: science/wreath-product.md

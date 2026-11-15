@@ -14,3 +14,7 @@ The output is a JSON report. Every exact algebraic assertion must pass, and floa
 These finite checks verify conventions and reproducible implementations. They do not certify an asymptotic exponent, a universal diamond-norm theorem, a mathematical prior-work claim or a physical hardware crossover. The [general proof](../science/group-quantiles.md), [occupation-time estimates](../science/wreath-product.md), and [finite quotient transfer](../science/finite-quotients.md) are the authoritative analytical accounts.
 
 The checks use deterministic finite cases and fixed random seeds where randomized numerical inputs are useful. No external dataset, network access, QRAM or private file is required.
+
+## Hosted mathematics
+
+The [read-only verification workflow](../.github/workflows/hosted-math.yml) runs these finite checks on the exact proposed commit, tests representative GitHub mathematics, then compares every tracked Markdown expression with its hosted rendering. It retains reports and screenshots as workflow artifacts for visual inspection. The [capture guide](hosted_math/README.md) documents the pinned collector and expression contract. Rendering checks support presentation accuracy; they do not replace proof review.

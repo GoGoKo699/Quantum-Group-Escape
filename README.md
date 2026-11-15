@@ -48,6 +48,10 @@ The [occupation-time proof](science/wreath-product.md) establishes the required 
 
 The [science entrypoint](science/README.md) gives a connected reading order. The [retrieval guide](llms.txt) maps specific questions to their proof sources.
 
+## Learn the argument
+
+The educational anchor is Andrew M. Childs, [*Lecture Notes on Quantum Algorithms*](https://www.cs.umd.edu/~amchilds/qa/), **17 April 2025**. The [learning route](learning/README.md) connects its reversible computation, representations and query lower bounds to this project. Begin with the [four-element worked example and source bridge](learning/childs-bridge.md), then follow the [thirty milestones](learning/milestones.md) through the complete proof and its resource limits.
+
 ## Implementation and scope
 
 The sublinear resource is serial calls to unknown generators. The direct sampler still processes order $`t`$ classical events; its work can be performed before receiving the quantum input. This account establishes oracle-call fast forwarding, with an explicit classical cost. A total-runtime or hardware advantage is not established.
