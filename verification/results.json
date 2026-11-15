@@ -1,0 +1,245 @@
+{
+  "additional_geodesic_instance": {
+    "endpoints_checked": 324,
+    "group": "C3 wr C4"
+  },
+  "groups": [
+    {
+      "associativity_tests": 343,
+      "compiler_basis_tests": 672,
+      "defining_relation_tests": 8,
+      "diameter": 3,
+      "endpoint_diagnostics": [
+        {
+          "dyadic_20_bit_tv": 1.0944115196834421e-06,
+          "mean_distance": 0.40049600989495776,
+          "radius_cap": 1,
+          "regular_input_unhalved_trace_error": 0.08424538579283183,
+          "tail_probability": 0.04212269289641593,
+          "time": 0.5
+        },
+        {
+          "dyadic_20_bit_tv": 5.929521097805535e-07,
+          "mean_distance": 1.0231958177789329,
+          "radius_cap": 1,
+          "regular_input_unhalved_trace_error": 0.5209033569192463,
+          "tail_probability": 0.26045167845962314,
+          "time": 2.0
+        },
+        {
+          "dyadic_20_bit_tv": 5.403358506600453e-07,
+          "mean_distance": 1.6433229465969987,
+          "radius_cap": 1,
+          "regular_input_unhalved_trace_error": 1.0796809851017946,
+          "tail_probability": 0.5398404925508973,
+          "time": 8.0
+        }
+      ],
+      "exact_cycle_geodesics": 0,
+      "gauge_bit_strings": 8,
+      "group": "C7",
+      "metric_edges": 14,
+      "order": 7,
+      "poisson_cap_diagnostic": {
+        "cap": 5,
+        "endpoint_l1_error": 0.024997740004372104,
+        "overflow": 0.01656360848061443,
+        "proved_l1_upper": 0.03312721696122886,
+        "time": 2.0
+      },
+      "reference_entangled_channel_frobenius_residual": 2.121916253634913e-16,
+      "reference_entangled_probability_rounding": {
+        "proved_diamond_upper": 1.299757209981961e-06,
+        "unhalved_trace_error": 1.2597232116234933e-06
+      },
+      "reference_entangled_word_truncation": {
+        "proved_diamond_upper": 0.314650821707694,
+        "radius_cap": 1,
+        "time": 1.25,
+        "unhalved_trace_error": 0.30628598544335894
+      },
+      "representation_pair_tests": 49
+    },
+    {
+      "associativity_tests": 1000,
+      "compiler_basis_tests": 1280,
+      "defining_relation_tests": 24,
+      "diameter": 3,
+      "endpoint_diagnostics": [
+        {
+          "dyadic_20_bit_tv": 1.6168017610428305e-06,
+          "mean_distance": 0.42636123772036316,
+          "radius_cap": 1,
+          "regular_input_unhalved_trace_error": 0.1110666649524154,
+          "tail_probability": 0.055533332476207675,
+          "time": 0.5
+        },
+        {
+          "dyadic_20_bit_tv": 1.1288181131947905e-06,
+          "mean_distance": 1.137718676445839,
+          "radius_cap": 1,
+          "regular_input_unhalved_trace_error": 0.6534348489767657,
+          "tail_probability": 0.32671742448838287,
+          "time": 2.0
+        },
+        {
+          "dyadic_20_bit_tv": 1.3381182307273254e-06,
+          "mean_distance": 1.6713004380655834,
+          "radius_cap": 1,
+          "regular_input_unhalved_trace_error": 1.1717534876768347,
+          "tail_probability": 0.5858767438384173,
+          "time": 8.0
+        }
+      ],
+      "exact_cycle_geodesics": 0,
+      "gauge_bit_strings": 8,
+      "group": "D5 (order 10)",
+      "metric_edges": 30,
+      "order": 10,
+      "poisson_cap_diagnostic": {
+        "cap": 5,
+        "endpoint_l1_error": 0.027978961705817276,
+        "overflow": 0.01656360848061443,
+        "proved_l1_upper": 0.03312721696122886,
+        "time": 2.0
+      },
+      "reference_entangled_channel_frobenius_residual": 1.3697855135624465e-16,
+      "reference_entangled_probability_rounding": {
+        "proved_diamond_upper": 3.2014155256776533e-06,
+        "unhalved_trace_error": 3.067676054706267e-06
+      },
+      "reference_entangled_word_truncation": {
+        "proved_diamond_upper": 0.4054200284236862,
+        "radius_cap": 1,
+        "time": 1.25,
+        "unhalved_trace_error": 0.4021524895481228
+      },
+      "representation_pair_tests": 100
+    },
+    {
+      "associativity_tests": 2000,
+      "compiler_basis_tests": 25920,
+      "defining_relation_tests": 176,
+      "diameter": 6,
+      "endpoint_diagnostics": [
+        {
+          "dyadic_20_bit_tv": 1.2548236830450859e-05,
+          "mean_distance": 0.4228861018577176,
+          "radius_cap": 3,
+          "regular_input_unhalved_trace_error": 0.0004563573392617388,
+          "tail_probability": 0.00022817866963086472,
+          "time": 0.5
+        },
+        {
+          "dyadic_20_bit_tv": 1.1453918501666381e-05,
+          "mean_distance": 1.216478811246886,
+          "radius_cap": 3,
+          "regular_input_unhalved_trace_error": 0.04381216869435272,
+          "tail_probability": 0.021906084347176367,
+          "time": 2.0
+        },
+        {
+          "dyadic_20_bit_tv": 1.2251700343592596e-05,
+          "mean_distance": 2.750594488449034,
+          "radius_cap": 3,
+          "regular_input_unhalved_trace_error": 0.6460360182393117,
+          "tail_probability": 0.32301800911965584,
+          "time": 8.0
+        }
+      ],
+      "exact_cycle_geodesics": 81,
+      "gauge_bit_strings": 16,
+      "group": "C3 wr C3",
+      "metric_edges": 324,
+      "order": 81,
+      "poisson_cap_diagnostic": {
+        "cap": 5,
+        "endpoint_l1_error": 0.0311915001115281,
+        "overflow": 0.01656360848061443,
+        "proved_l1_upper": 0.03312721696122886,
+        "time": 2.0
+      },
+      "reference_entangled_channel_frobenius_residual": 1.986846554338409e-16,
+      "reference_entangled_probability_rounding": {
+        "proved_diamond_upper": 1.6365836716543927e-05,
+        "unhalved_trace_error": 1.574974249234925e-05
+      },
+      "reference_entangled_word_truncation": {
+        "proved_diamond_upper": 0.010746121623483918,
+        "radius_cap": 3,
+        "time": 1.25,
+        "unhalved_trace_error": 0.010714888897199196
+      },
+      "representation_pair_tests": 6561
+    }
+  ],
+  "limits": [
+    "Finite permutation and compiler tests concern the listed groups only.",
+    "Floating channel, probability and rounding diagnostics are not interval certificates.",
+    "The diamond/quantile theorems and asymptotic wreath exponent are analytical claims; no exponent is fitted here."
+  ],
+  "passed": true,
+  "poisson_cutoff_tests": [
+    {
+      "cap": 10,
+      "delta": 0.01,
+      "tail": 0.0,
+      "time": 0.0
+    },
+    {
+      "cap": 5,
+      "delta": 0.1,
+      "tail": 0.0,
+      "time": 0.0
+    },
+    {
+      "cap": 10,
+      "delta": 0.01,
+      "tail": 2.2858449307904117e-19,
+      "time": 0.1
+    },
+    {
+      "cap": 5,
+      "delta": 0.1,
+      "tail": 1.2748986922297912e-09,
+      "time": 0.1
+    },
+    {
+      "cap": 12,
+      "delta": 0.01,
+      "tail": 6.359777327134151e-11,
+      "time": 1.0
+    },
+    {
+      "cap": 7,
+      "delta": 0.1,
+      "tail": 1.024919667464169e-05,
+      "time": 1.0
+    },
+    {
+      "cap": 16,
+      "delta": 0.01,
+      "tail": 2.1647844514852817e-08,
+      "time": 3.0
+    },
+    {
+      "cap": 11,
+      "delta": 0.1,
+      "tail": 7.138662897420658e-05,
+      "time": 3.0
+    },
+    {
+      "cap": 50,
+      "delta": 0.01,
+      "tail": 4.8287374822794616e-09,
+      "time": 20.0
+    },
+    {
+      "cap": 45,
+      "delta": 0.1,
+      "tail": 4.54017940213553e-07,
+      "time": 20.0
+    }
+  ],
+  "seed_rule": "12000 + group index"
+}
