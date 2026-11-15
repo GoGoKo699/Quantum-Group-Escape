@@ -36,7 +36,7 @@ A group table, a word-length algorithm, a classical description of a reference r
 The query model permits a coherent selection of generators,
 
 ```math
-\operatorname{SELECT}_{\pi}
+\mathrm{SELECT}_{\pi}
  =\sum_{s\in S}|s\rangle\!\langle s|\otimes\pi(s),
 ```
 
@@ -93,9 +93,9 @@ No symmetry of $`\nu`$ is required for the general theorem. Symmetry is imposed 
 ```math
 \mathcal L_{\pi,\nu}
  =\sum_{s\in S}\nu(s)
-   \bigl(\operatorname{Ad}_{\pi(s)}-\operatorname{Id}\bigr),
+   \bigl(\mathrm{Ad}_{\pi(s)}-\mathrm{Id}\bigr),
 \qquad
-\operatorname{Ad}_{U}(\rho)=U\rho U^{\dagger},
+\mathrm{Ad}_{U}(\rho)=U\rho U^{\dagger},
 ```
 
 and the Poisson expansion gives the exact identity

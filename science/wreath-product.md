@@ -18,9 +18,9 @@ For an unknown supplied unitary representation, write $`A=U_a`$ and $`B=U_b`$. T
 ```math
 \mathcal L_U
 =\frac14\left(
-\operatorname{Ad}_{A}+\operatorname{Ad}_{A^{-1}}
-+\operatorname{Ad}_{B}+\operatorname{Ad}_{B^{-1}}
-\right)-\operatorname{Id}.
+\mathrm{Ad}_{A}+\mathrm{Ad}_{A^{-1}}
++\mathrm{Ad}_{B}+\mathrm{Ad}_{B^{-1}}
+\right)-\mathrm{Id}.
 ```
 
 It has four bounded unitary jump terms, total jump rate one, no Hamiltonian term, and is self-adjoint in the Hilbert–Schmidt inner product. The supplied unitaries need not be Hermitian involutions. The [query model](model.md) includes selected inverse and controlled access; it does not provide their unknown matrices as classical input.
@@ -34,9 +34,9 @@ For $`g=(k,\eta)`$, define
 ```math
 W(g)=\sum_{x\in\mathbb Z}|\eta(x)|,
 \qquad
-u=\min\bigl(\{0,k\}\cup\operatorname{supp}\eta\bigr),
+u=\min\bigl(\{0,k\}\cup\mathrm{supp}\eta\bigr),
 \qquad
-v=\max\bigl(\{0,k\}\cup\operatorname{supp}\eta\bigr).
+v=\max\bigl(\{0,k\}\cup\mathrm{supp}\eta\bigr).
 ```
 
 Its exact word length for $`S`$ is
@@ -204,7 +204,7 @@ k_\delta=\frac{c_0a_\delta}{2},
 provided $`t\ge(2b_\delta/a_\delta)^4`$. Conditional independence and (3) give
 
 ```math
-\operatorname{Var}(W_t\mid X)
+\mathrm{Var}(W_t\mid X)
 \le\sum_x\mathbb E[Z_x^2\mid X]=\frac t2.
 ```
 

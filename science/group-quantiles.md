@@ -51,8 +51,8 @@ Sample $`g\sim\mu`$. If $`\ell(g)\leq r`$, apply the corresponding generator que
 
 ```math
 \widetilde\Phi^{(r)}_{\pi,\mu}
- =\sum_{\ell(g)\leq r}\mu(g)\operatorname{Ad}_{\pi(g)}
-   +\beta_r\operatorname{Id},
+ =\sum_{\ell(g)\leq r}\mu(g)\mathrm{Ad}_{\pi(g)}
+   +\beta_r\mathrm{Id},
 \qquad
 \beta_r=\Pr[D>r].
 ```
@@ -64,7 +64,7 @@ It is a convex combination of channels, so every branch is part of a completely 
 \|\Phi_{\pi,\mu}-\widetilde\Phi^{(r)}_{\pi,\mu}\|_{\diamond}
 &=\left\|
   \sum_{\ell(g)>r}\mu(g)
-       \bigl(\operatorname{Ad}_{\pi(g)}-\operatorname{Id}\bigr)
+       \bigl(\mathrm{Ad}_{\pi(g)}-\mathrm{Id}\bigr)
   \right\|_{\diamond} \\
 &\leq 2\beta_r.
 \end{aligned}

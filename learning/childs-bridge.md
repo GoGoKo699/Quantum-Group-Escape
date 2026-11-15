@@ -31,7 +31,7 @@ Now impose a one-call cap. Replace the $`j=2`$ row by the identity and keep the 
 
 ```math
 \|\widetilde\Phi-\Phi\|_\diamond
-=\frac14\|\operatorname{Id}-\operatorname{Ad}_{U^2}\|_\diamond
+=\frac14\|\mathrm{Id}-\mathrm{Ad}_{U^2}\|_\diamond
 \le\frac12.
 ```
 
@@ -75,7 +75,7 @@ The algebraic route does not require implementing a group Fourier transform. The
 | Representation (written $`\sigma`$ in Childs §11.1) | $`\pi(g)`$ | Unknown unitary matrices respecting all group products |
 | Known left regular action | $`L_g|h\rangle=|gh\rangle`$ | A reference construction used in the converse |
 | Oracle input in the parity reduction | $`x=(x_1,\ldots,x_m)`$ | Hidden bits used to instantiate a hard representation |
-| One supplied query | controlled $`\operatorname{SELECT}_\pi`$ or its inverse | One charged call, including coherent generator selection |
+| One supplied query | controlled $`\mathrm{SELECT}_\pi`$ or its inverse | One charged call, including coherent generator selection |
 | Known endpoint law | $`\mu(g)`$ | Classical randomness, not an unknown-data loader |
 | Output channel | $`\Phi_{\pi,\mu}`$ | The transformation on every input and reference |
 | Word length | $`\ell(g)=|g|_S`$ | The fewest supplied generators needed to spell $`g`$ |

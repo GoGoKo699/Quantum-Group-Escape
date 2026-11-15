@@ -138,7 +138,7 @@ W_M(\eta)=\sum_{x\in\mathbb Z_L}
 \min\{\eta(x),M-\eta(x)\},
 ```
 
-using residues $`0\le\eta(x)<M`$. Let $`K=\{0,k\}\cup\operatorname{supp}\eta`$. Its word length is exactly
+using residues $`0\le\eta(x)<M`$. Let $`K=\{0,k\}\cup\mathrm{supp}\eta`$. Its word length is exactly
 
 ```math
 |(k,\eta)|_{S_{L,M}}=W_M(\eta)+\tau_L(K;0,k),
