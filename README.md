@@ -29,7 +29,7 @@ A nonabelian example uses four equal-rate unitary jumps: a cursor shift and its 
 ```math
 Q(t,\varepsilon)=\Theta_\varepsilon(t^{3/4})
 \qquad(t\longrightarrow\infty),
-\qquad0<\varepsilon\le1/100\text{ fixed}.
+\qquad0\lt \varepsilon\le1/100\text{ fixed}.
 ```
 
 The [occupation-time proof](science/wreath-product.md) establishes the required escape quantiles, and the [finite-quotient proof](science/finite-quotients.md) supplies finite groups, metric preservation and dimension bounds. The classical escape exponent and the existence of intermediate Lindblad simulation exponents are established antecedents; [related work](references/related-work.md) identifies the added oracle-level statement.
@@ -47,6 +47,10 @@ The [occupation-time proof](science/wreath-product.md) establishes the required 
 | Which ingredients and earlier results are inherited? | [Related work](references/related-work.md) |
 
 The [science entrypoint](science/README.md) gives a connected reading order. The [retrieval guide](llms.txt) maps specific questions to their proof sources.
+
+## Learn the argument
+
+The educational anchor is Andrew M. Childs, [*Lecture Notes on Quantum Algorithms*](https://www.cs.umd.edu/~amchilds/qa/), **17 April 2025**. The [learning route](learning/README.md) connects its reversible computation, representations and query lower bounds to this project. Begin with the [four-element worked example and source bridge](learning/childs-bridge.md), then follow the [thirty milestones](learning/milestones.md) through the complete proof and its resource limits.
 
 ## Implementation and scope
 

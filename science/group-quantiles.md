@@ -12,7 +12,7 @@ Fix a finite group $`G`$, a known inverse-closed generating set $`S`$, and a kno
 D=\ell(g),\qquad g\sim\mu,
 ```
 
-and define its upper-tail radius at tolerance $`0\leq\eta<1`$ by
+and define its upper-tail radius at tolerance $`0\leq\eta\lt 1`$ by
 
 ```math
 R_{\eta}(\mu)
@@ -22,7 +22,7 @@ R_{\eta}(\mu)
 
 This radius is finite because $`G`$ is finite. The convention includes $`R_0`$, the largest length having positive probability. The event uses a strict inequality $`D>r`$; that convention fixes the integer endpoint in the lower proof.
 
-**Theorem 1.** For every $`0\leq\varepsilon<1`$, the worst-case query cost, uniform over all finite-dimensional unknown representations, satisfies
+**Theorem 1.** For every $`0\leq\varepsilon\lt 1`$, the worst-case query cost, uniform over all finite-dimensional unknown representations, satisfies
 
 ```math
 \frac14 R_{\varepsilon}(\mu)
@@ -51,8 +51,8 @@ Sample $`g\sim\mu`$. If $`\ell(g)\leq r`$, apply the corresponding generator que
 
 ```math
 \widetilde\Phi^{(r)}_{\pi,\mu}
- =\sum_{\ell(g)\leq r}\mu(g)\operatorname{Ad}_{\pi(g)}
-   +\beta_r\operatorname{Id},
+ =\sum_{\ell(g)\leq r}\mu(g)\mathrm{Ad}_{\pi(g)}
+   +\beta_r\mathrm{Id},
 \qquad
 \beta_r=\Pr[D>r].
 ```
@@ -61,11 +61,11 @@ It is a convex combination of channels, so every branch is part of a completely 
 
 ```math
 \begin{aligned}
-\|\Phi_{\pi,\mu}-\widetilde\Phi^{(r)}_{\pi,\mu}\|_{\diamond}
-&=\left\|
+\lVert \Phi_{\pi,\mu}-\widetilde\Phi^{(r)}_{\pi,\mu}\rVert _{\diamond}
+&=\left\lVert 
   \sum_{\ell(g)>r}\mu(g)
-       \bigl(\operatorname{Ad}_{\pi(g)}-\operatorname{Id}\bigr)
-  \right\|_{\diamond} \\
+       \bigl(\mathrm{Ad}_{\pi(g)}-\mathrm{Id}\bigr)
+  \right\rVert _{\diamond} \\
 &\leq 2\beta_r.
 \end{aligned}
 ```
@@ -207,7 +207,7 @@ Strictly positive parity bias gives
  \quad\text{for every }x.
 ```
 
-Every multilinear polynomial of degree less than $`m`$ is orthogonal to $`\chi`$ under the uniform Boolean law: each monomial omits a variable whose signed average is zero. If $`4q<m`$, it would follow that
+Every multilinear polynomial of degree less than $`m`$ is orthogonal to $`\chi`$ under the uniform Boolean law: each monomial omits a variable whose signed average is zero. If $`4q\lt m`$, it would follow that
 
 ```math
  2^{-m}\sum_x\chi(x)H(x)=0,
@@ -231,15 +231,15 @@ Take $`m=R_{\varepsilon}(\mu)`$. If that radius is zero, the lower bound is triv
 For any two endpoint laws,
 
 ```math
- \|\Phi_{\pi,\mu}-\Phi_{\pi,\widehat\mu}\|_{\diamond}
+ \lVert \Phi_{\pi,\mu}-\Phi_{\pi,\widehat\mu}\rVert _{\diamond}
  \leq\sum_g|\mu(g)-\widehat\mu(g)|
- =2\|\mu-\widehat\mu\|_{\mathrm{TV}}.
+ =2\lVert \mu-\widehat\mu\rVert _{\mathrm{TV}}.
 ```
 
 Let $`C_r(g)`$ retain $`g`$ when $`\ell(g)\leq r`$ and otherwise replace it by $`e`$. If the implemented sampler has total-variation error at most $`\delta`$, its capped pushforward differs from the ideal capped pushforward by at most $`\delta`$. The implemented channel therefore satisfies
 
 ```math
- \|\Phi_{\pi,\mu}-\widetilde\Phi_{\pi}\|_{\diamond}
+ \lVert \Phi_{\pi,\mu}-\widetilde\Phi_{\pi}\rVert _{\diamond}
  \leq 2\Pr[D>r]+2\delta.
 ```
 
@@ -273,9 +273,9 @@ Paley-Zygmund gives
  \geq\frac{c_0^2}{4C_0},
 ```
 
-while Markov gives an upper fixed quantile using $`\mathbb E D_t\leq\sqrt{C_0}a_t`$. Thus these moment assumptions prove a matching law for each fixed $`\varepsilon<c_0^2/(4C_0)`$. A claim at larger fixed error needs a stronger lower-quantile estimate. The [wreath-product analysis](wreath-product.md) supplies the estimates used for its own error regime, and the [finite-quotient analysis](finite-quotients.md) accounts for their transfer to finite groups.
+while Markov gives an upper fixed quantile using $`\mathbb E D_t\leq\sqrt{C_0}a_t`$. Thus these moment assumptions prove a matching law for each fixed $`\varepsilon\lt c_0^2/(4C_0)`$. A claim at larger fixed error needs a stronger lower-quantile estimate. The [wreath-product analysis](wreath-product.md) supplies the estimates used for its own error regime, and the [finite-quotient analysis](finite-quotients.md) accounts for their transfer to finite groups.
 
-The need for quantiles is substantive. For example, let $`\mu=(1-\alpha)\delta_e+\alpha\delta_g`$, where $`\ell(g)=L`$ and $`0<\alpha\leq\varepsilon/2`$. Returning the identity uses zero queries and has diamond error at most $`2\alpha\leq\varepsilon`$, even though
+The need for quantiles is substantive. For example, let $`\mu=(1-\alpha)\delta_e+\alpha\delta_g`$, where $`\ell(g)=L`$ and $`0\lt \alpha\leq\varepsilon/2`$. Returning the identity uses zero queries and has diamond error at most $`2\alpha\leq\varepsilon`$, even though
 
 ```math
  \mathbb E D=\alpha L

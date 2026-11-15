@@ -1,0 +1,158 @@
+{
+  "schema_version": 1,
+  "expressions": [
+    {
+      "path": "README.md",
+      "index": 2,
+      "source_sha256": "44d156a97656c1922da4556ae9091200490e690d6ef3a2556e90d97eed41ddb4",
+      "required_text": [
+        "Rη=min",
+        "r∈Z≥0",
+        "Pr(D>r)≤η"
+      ]
+    },
+    {
+      "path": "README.md",
+      "index": 3,
+      "source_sha256": "ab7e3f59cbd63a352c5225fa699e15a1635fe9b0a3301394137535c8ac910ef3",
+      "required_text": [
+        "14Rε",
+        "≤QG(μ,ε)≤Rε/2"
+      ]
+    },
+    {
+      "path": "README.md",
+      "index": 5,
+      "source_sha256": "e8aa5463af9a9af711991cdf53b31ff2f17f841feab6930028705c4fd0c3aa55",
+      "required_text": [
+        "Q(t,ε)=Θε(t3/4)",
+        "0<ε≤1/100",
+        "fixed"
+      ]
+    },
+    {
+      "path": "science/group-quantiles.md",
+      "index": 7,
+      "source_sha256": "4ea7c9e0fd985d71461d3094075ad9bbd4412376af216f8940f429062ad7db18",
+      "required_text": [
+        "Rη(μ)=min",
+        "r∈Z≥0",
+        "Pr[D>r]≤η"
+      ]
+    },
+    {
+      "path": "science/group-quantiles.md",
+      "index": 12,
+      "source_sha256": "437872dbc051c09ecb961c6f5a286eb57d95fd7a801afb6156fde09d026c8a3f",
+      "required_text": [
+        "14Rε(μ)",
+        "≤QG(μ,ε)≤Rε/2(μ)"
+      ]
+    },
+    {
+      "path": "science/group-quantiles.md",
+      "index": 17,
+      "source_sha256": "7e70f2adec9a6b78bc212684f11fe52d2e50c7a2f928b9879718dccbd57c913a",
+      "expected_text": "Pr[D≥m]>ε"
+    },
+    {
+      "path": "science/group-quantiles.md",
+      "index": 76,
+      "source_sha256": "880cfa99f2deccfee8901535fd933486405e006bf1b60761b0204f80437e5242",
+      "expected_text": "12+pm−ε2."
+    },
+    {
+      "path": "science/group-quantiles.md",
+      "index": 85,
+      "source_sha256": "7a742fb3c07ba49af1ada3cf980f55b84ba6f498c0309e196bd565a6e1a4fb27",
+      "required_text": [
+        "χ(x)H(x)≥pm−ε>0"
+      ]
+    },
+    {
+      "path": "science/group-quantiles.md",
+      "index": 93,
+      "source_sha256": "d3654faa127379e136dc31445a3ee077b8a85835b1d61690e6b90c85f07ea999",
+      "required_text": [
+        "Pr[D≥Rε(μ)]",
+        "Pr[D>Rε(μ)−1]>ε"
+      ]
+    },
+    {
+      "path": "science/finite-quotients.md",
+      "index": 40,
+      "source_sha256": "fa34e92c46719283ec4e5613a4d7d0ff0c79ca2bd89c34560dae92e2538a8feb",
+      "required_text": [
+        "qt",
+        "40ε",
+        "t3/4",
+        "Pr{Dt>qt}≤ε4"
+      ]
+    },
+    {
+      "path": "science/finite-quotients.md",
+      "index": 41,
+      "source_sha256": "ca82fbd0b1acab02eedbccb37655a49f8d69b5563d5d3168d308c6a9f037e6cd",
+      "required_text": [
+        "≤ε4+ε8<ε2"
+      ]
+    },
+    {
+      "path": "science/finite-quotients.md",
+      "index": 53,
+      "source_sha256": "8689dcb89bcef8d8f48eed22c1c30567134f34cffb7ee7ff5963041ca5b3a0df",
+      "required_text": [
+        "QGt(t,ε)=Θε(t3/4)",
+        "0<ε≤1100",
+        "fixed",
+        "(6)"
+      ]
+    },
+    {
+      "path": "science/finite-quotients.md",
+      "index": 73,
+      "source_sha256": "418239cfc1d10a881d83674afde9650ebbbb5c2f204c15c436f38a280cd5fd09",
+      "required_text": [
+        "nt",
+        "log2",
+        "2LtMtLt",
+        "Oε",
+        "tlog(t+2)",
+        "(8)"
+      ]
+    },
+    {
+      "path": "learning/childs-bridge.md",
+      "index": 17,
+      "source_sha256": "2b83f9dd716b13cbbf10e2d5f482bd1b30cfd0dfba344d3ad1e2c313ec33f153",
+      "required_text": [
+        "14",
+        "Id",
+        "Ad",
+        "U2",
+        "≤12"
+      ]
+    },
+    {
+      "path": "learning/childs-bridge.md",
+      "index": 33,
+      "source_sha256": "16e1e201e9cad3a27b71fc252c8b462d541476456db21f1e56009ac4c689bb14",
+      "expected_text": "1/2+(1/4)/2=5/8"
+    },
+    {
+      "path": "learning/childs-bridge.md",
+      "index": 35,
+      "source_sha256": "6669743c77ff5bb876bc7aa9cd5d54b997bee0bd5b6e1f86a1516feb574b0ff6",
+      "expected_text": "0.62"
+    },
+    {
+      "path": "learning/childs-bridge.md",
+      "index": 60,
+      "source_sha256": "5f1a35160514b8f2d890d8d2db709180030f5232c81469e5872510ef88e5bf6f",
+      "required_text": [
+        "14Rε(μ)",
+        "≤QG(μ,ε)≤Rε/2(μ)"
+      ]
+    }
+  ]
+}
