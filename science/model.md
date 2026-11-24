@@ -66,15 +66,15 @@ Throughout this repository the error is the **unhalved diamond norm**:
 
 The maximum distance between channels in this convention is two. For any input state, any reference, and any final measurement event, this norm bound changes that event's probability by at most $`\varepsilon/2`$. Indeed, the output-state difference is Hermitian with trace zero, so its largest measurement bias is half its trace norm.
 
-The quantile theorem is stated for $`0\leq\varepsilon\lt 1`$. Exact simulation is included by setting $`\varepsilon=0`$. The strict inequality in the lower theorem's escape condition is material at a quantile boundary.
+The [query laws](group-quantiles.md) cover $`0\leq\varepsilon\leq2`$. Exact simulation sets $`\varepsilon=0`$. At a hard-cap boundary, equality of the escaped mass with $`\varepsilon/2`$ qualifies.
 
 ## Worst-case query cost and its dimension quantifier
 
 Write $`Q_G(\mu,\varepsilon)`$ for the smallest integer $`q`$ with the following property: for each finite target dimension there is an algorithm, chosen using that dimension and the known data $`G,S,\mu,\varepsilon`$, that uses at most $`q`$ supplied-generator queries on every branch and satisfies the diamond-error bound for every representation of that dimension.
 
-The circuit and all its nonoracle operations are uniform over the unknown representations in its target dimension. The bound $`q`$ is uniform over all finite dimensions. A single hard representation of dimension $`2|G|`$ therefore suffices for the general lower bound. This is not a statement about every individual representation, a chosen irreducible representation, or one fixed small physical system as time tends to infinity.
+The circuit and its nonoracle operations are uniform over the unknown representations of its target dimension. The budget holds across all finite dimensions. The lower bound is quantified over a family of exact representations in dimension $`K|G|`$ for each finite $`K\ge2`$. This quantifier yields the exact minimax error, while the construction also gives a finite-dimension lower bound for any prescribed number of copies.
 
-The cost is a worst-case bound on the number of oracle calls, rather than an expected stopping time. A random word of unbounded length must be capped before it yields such a bound. Conversely, a maximum-query lower bound does not by itself establish the same statement for arbitrary expected-query algorithms.
+For the expected-query law, write $`Q_G^{\mathrm{mean}}(\mu,\varepsilon)`$ for the smallest uniformly guaranteed expected number of generator calls. As with a hard cap, an algorithm may be chosen separately for each target dimension, and its error and expected budget must hold for every representation of that dimension. The expectation is bounded on every input and is over the simulator's classical randomness and measurement record. The record determines whether another call is invoked. Each invocation of a controlled oracle costs one query, including invocations with idle components of a coherent control register. The expected-cost model counts these classical histories of actual invocations.
 
 The finite group and the law may vary with a problem parameter. The [finite-quotient construction](finite-quotients.md) states the resulting size and target-width costs when a growing group is used to represent a finite window of an infinite random walk.
 
@@ -108,7 +108,7 @@ Thus the endpoint is known classical randomness, while applying its represented 
 
 ## Probability precision and implementation precision
 
-The information-theoretic query theorem first treats $`\mu`$ as an exact mathematical law and permits exact known classical randomization. A finite classical description can instead specify a law $`\widehat\mu`$ with a certified total-variation error
+The information-theoretic query theorem treats $`\mu`$ as an exact known law and permits exact classical sampling. The expected-query upper bound uses the law to choose a distance cutoff and a thinning probability at that cutoff. A finite classical description can instead specify a law $`\widehat\mu`$ with a certified total-variation error
 
 ```math
 \lVert \widehat\mu-\mu\rVert _{\mathrm{TV}}

@@ -1,6 +1,6 @@
 # A bounded-jump example with three-quarter query scaling
 
-The [group-quantile theorem](group-quantiles.md) turns a classical escape estimate into a statement about simulating an unknown quantum channel. This page supplies an explicit nonabelian example: a cursor moves along an integer line, and each visited site carries an integer counter. Diffusion spreads the cursor over order $`\sqrt t`$ sites. The counters accumulated on those sites require order $`t^{3/4}`$ elementary updates after cancellations. The resulting exponent is inherited classical probability; the quantum conclusion uses the representation-preserving lower bound.
+The [exact hard-cap theorem](group-quantiles.md) makes the simulation cost a quantile of classical escape. This page supplies an explicit nonabelian example: a cursor moves along an integer line, and each visited site carries an integer counter. Diffusion spreads the cursor over order $`\sqrt t`$ sites. The counters accumulated on those sites require order $`t^{3/4}`$ elementary updates after cancellations. The resulting exponent is inherited classical probability; the quantum conclusion uses the representation-preserving lower bound.
 
 ## 1. The group and the channel
 
@@ -249,7 +249,7 @@ Q_{G_t}(t,\epsilon)=\Theta_\epsilon(t^{3/4})
 \qquad (13)
 ```
 
-The upper bound simulates the full trace-preserving channel, including arbitrary reference systems. The lower bound applies to arbitrary coherent and adaptive query algorithms, using a representation on a finite regular-register space and an answer qubit. It is not restricted to algorithms that explicitly follow a trajectory.
+The upper bound simulates the full trace-preserving channel, including arbitrary reference systems. The lower bound applies to arbitrary coherent and adaptive query algorithms. Two signed copies of the finite regular representation suffice for these tail probabilities.
 
 The four jump types are fixed; the group, its finite relations and the hard representation dimension depend on time. Equation (13) does not assert long-time hardness at one fixed finite dimension. Its sublinear resource is the number of supplied-unitary calls. Straightforward trajectory generation uses order $`t`$ expected classical updates; the theorem does not establish $`t^{3/4}`$ total runtime or a hardware advantage.
 

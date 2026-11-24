@@ -1,6 +1,6 @@
 # Related work and attribution
 
-This project studies a known finite group with an unknown unitary representation. Its target is the full random-unitary channel on arbitrary inputs and references, and its resource is a hard cap on serial generator queries. The contribution is an error-shifted escape-quantile upper/lower bracket and a nonabelian finite-generator application. The underlying group twirl, classical escape behavior, word-compression idea, and quantum parity bound all have antecedents.
+This project studies a known finite group with an unknown unitary representation. Its target is the full random-unitary channel on arbitrary inputs and references. The shortest-word distribution determines the exact hard-query error and the optimal call-count tails under classical stopping. A finite-generator nonabelian example gives three-quarter-power query scaling. Group twirling, classical escape, word compression, and the query polynomial method supply the antecedents.
 
 ## Group twirls are established open-system mathematics
 
@@ -23,13 +23,13 @@ Here the supplied primitives form a finite noncommuting generating alphabet. The
 
 Ding, Junge, Schleich, and Wu [3] develop Lipschitz-complexity lower bounds for quantum Markov simulation relative to a fixed accessible unitary set. Their convexified circuit depth measures mixtures of products from that set; they also formulate environment-assisted versions with specified encoding and decoding. Relevant definitions and statements include Section 2, Eq. (2.2), Sections 3.2 and 4.1, and Section 5.
 
-The present oracle model instead allows arbitrary known operations and ancillary processing without charging them as unknown-generator queries. A simulator must work uniformly for an unknown representation. Its lower bound follows by compiling each oracle call into Boolean queries and reducing to parity. A lower bound for a chosen accessible-gate product class is therefore not automatically the unrestricted oracle lower bound proved here. Conversely, this query theorem is not a bound on complete circuit depth in the accessible-gate model.
+The present oracle model allows arbitrary known operations and ancillary processing without charging them as unknown-generator queries. A simulator works uniformly for an unknown representation. The exact converse follows from the polynomial degree required to reproduce coherence between signed copies. The oracle count and the complete circuit depth measure different costs.
 
 ## The reflection hierarchy supplies the closest proof architecture
 
 *Quantum Dephasing Threshold* [4] proves constant, square-root, and linear worst-case query laws for one, two, and three supplied Hermitian involutions. Its pair algorithm reduces words to endpoints of a walk on a line. Its three-reflection converse uses depth-prefix parity on a finite tree, with a controlled-SELECT compiler and an unrestricted quantum-query lower bound.
 
-Those are direct antecedents of this project's word compression, tail truncation, and radial-parity argument. The extension here is a theorem for any specified finite group and endpoint law. A single conjugation of the regular representation preserves all relations, including cycles; the lower witness is therefore a valid representation of the declared group. The resulting error-shifted quantile bracket goes beyond the earlier line/tree cases. This project extends that architecture rather than presenting it as an unrelated proof method.
+Those are direct antecedents of word compression, tail truncation, and radial signs. The earlier version of this project applied a single parity conjugation to a regular representation and obtained an error-shifted quantile bracket. The exact argument assigns independent signs to several copies and tests their endpoint coherences. This removes both the factor and the error shift in the earlier lower bound. The same representation ensemble fixes the worst-case expected-query cost by controlling all stopping tails together.
 
 ## Classical wreath escape is credited separately
 
@@ -39,16 +39,18 @@ The [wreath proof](../science/wreath-product.md) supplies the local-time estimat
 
 ## Standard lower-bound tools
 
-The reduction uses the polynomial-method lower bound for parity [7]. Its role is explicit: a $`q`$-query simulator, together with a two-Boolean-query implementation of each controlled generator, would compute an $`m`$-bit parity using at most $`2q`$ Boolean queries. Strictly positive worst-case bias requires at least $`m/2`$ such queries, yielding $`q\ge m/4`$. Deferred measurement and purification include adaptive algorithms and arbitrary ancillary registers. The new ingredient is the relation-preserving representation family that makes the classical escape event reveal that parity.
+The degree bound uses the polynomial method [7]. In the radial sign representation a controlled generator has entries of degree at most one, and the simulated density operator has degree at most twice the query count. Cross-copy coherence at an endpoint requires the product of two independent radial characters. The new measurement converts the absent characters into the entire far-endpoint probability in the dimension-uniform limit.
+
+Copeland and Pommersheim [8] also use representation characters in an adaptive query setting. In their task one identifies an unknown oracle element or its coset. Here the unknown object is a unitary representation accessed through several generators, and success means implementing its random-unitary channel in diamond norm.
 
 ## Comparison at the level of the claimed result
 
 | Earlier ingredient | What is retained | Additional statement here |
 |---|---|---|
-| Group twirling semigroups [1] | Random walk endpoints induce a quantum channel through a representation. | Oracle upper/lower bounds uniform over unknown representations. |
+| Group twirling semigroups [1] | Random walk endpoints induce a quantum channel through a representation. | Exact simulation error and query budgets uniform over unknown representations. |
 | Lévy Hamiltonian twirls [2] | Dissipative simulation can have intermediate time exponents. | A bounded noncommuting generator family whose optimum follows from word geometry. |
-| Accessible-gate complexity [3] | Open-system simulation cost depends on its declared operations. | A parity converse allowing arbitrary known controls in a black-box generator model. |
-| Reflection word geometry [4] | Endpoint compression and radial-prefix parity. | Exact group-relation preservation and an arbitrary-law quantile bracket. |
+| Accessible-gate complexity [3] | Open-system simulation cost depends on its declared operations. | Exact converse allowing arbitrary known controls in a black-box generator model. |
+| Reflection word geometry [4] | Endpoint compression and radial-prefix parity. | Exact arbitrary-law hard and classical-stopping query costs. |
 | Classical wreath escape [5,6] | The geometric growth mechanism and its established precedents. | A quantum channel-simulation consequence with finite quotients and charged implementation costs. |
 
 ## References
@@ -60,5 +62,6 @@ The reduction uses the polynomial-method lower bound for parity [7]. Its role is
 5. D. Revelle, **Rate of escape of random walks on wreath products and related groups**, *The Annals of Probability* **31**(4), 1917–1934 (2003). [DOI](https://doi.org/10.1214/aop/1068646371).
 6. G. Amir and B. Virág, **Speed exponents of random walks on groups**, *International Mathematics Research Notices* **2017**(9), 2567–2598. [arXiv:1203.6226v4](https://arxiv.org/abs/1203.6226v4); [DOI](https://doi.org/10.1093/imrn/rnv378).
 7. R. Beals, H. Buhrman, R. Cleve, M. Mosca, and R. de Wolf, **Quantum Lower Bounds by Polynomials**, *Journal of the ACM* **48**(4), 778–797 (2001). [arXiv:quant-ph/9802049](https://arxiv.org/abs/quant-ph/9802049); [DOI](https://doi.org/10.1145/502090.502097).
+8. D. Copeland and J. Pommersheim, **Quantum query complexity of symmetric oracle problems**, *Quantum* **5**, 403 (2021). [arXiv:1812.09428](https://arxiv.org/abs/1812.09428); [DOI](https://doi.org/10.22331/q-2021-03-09-403).
 
 [Scientific interpretation](../science/interpretation.md) · [Model](../science/model.md) · [Quantile proof](../science/group-quantiles.md)

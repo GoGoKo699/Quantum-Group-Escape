@@ -1,290 +1,128 @@
-# Error-shifted quantile bounds for group-twirl simulation
+# Exact query laws for group-twirl simulation
 
-A known group law lets a simulator replace a sampled word by a shortest representative of the same group element. The following theorem identifies a matching obstruction to arbitrary coherent query algorithms: an unknown change of basis can encode parity in the distance reached by the known group walk while preserving every group relation.
-
-The result concerns the full quantum channel and the [supplied-generator model](model.md). The endpoint law need not come from a random walk.
+A known group law lets a simulator replace a sampled word by a shortest word for its endpoint. The theorem below identifies exactly how much error can buy shorter words or fewer calls on average. The target is the full quantum channel in the [supplied-generator model](model.md). The endpoint law may be any known law on the finite group.
 
 ## The finite-group theorem
 
-Fix a finite group $`G`$, a known inverse-closed generating set $`S`$, and a known probability law $`\mu`$ on $`G`$. Let
+Let $`G`$ be a finite group with a known inverse-closed generating set $`S`$. For an endpoint $`g\sim\mu`$, write $`D=\ell(g)`$ for its shortest-word distance and $`d=\max_{g\in G}\ell(g)`$ for the diameter. Define
 
 ```math
-D=\ell(g),\qquad g\sim\mu,
+\beta_q=\Pr[D>q],
+\qquad
+R_\eta=\min\{q\in\mathbb Z_{\ge0}:\beta_q\le\eta\},
+\qquad 0\le\eta\le1.
 ```
 
-and define its upper-tail radius at tolerance $`0\leq\eta\lt 1`$ by
+**Theorem.** With a hard cap of $`q`$ supplied-generator calls, the dimension-uniform minimax unhalved diamond error is $`2\beta_q`$. Thus the smallest hard cap for error $`0\le\varepsilon\le2`$ is
 
 ```math
-R_{\eta}(\mu)
- =\min\bigl\{r\in\mathbb Z_{\geq0}:
-                 \Pr[D>r]\leq\eta\bigr\}.
+Q_G(\mu,\varepsilon)=R_{\varepsilon/2}.
 ```
 
-This radius is finite because $`G`$ is finite. The convention includes $`R_0`$, the largest length having positive probability. The event uses a strict inequality $`D>r`$; that convention fixes the integer endpoint in the lower proof.
-
-**Theorem 1.** For every $`0\leq\varepsilon\lt 1`$, the worst-case query cost, uniform over all finite-dimensional unknown representations, satisfies
+If the number of calls $`N`$ is determined by a classically recorded stopping time, the smallest uniformly guaranteed expected number of calls at the same error is
 
 ```math
-\frac14 R_{\varepsilon}(\mu)
- \ \leq\ Q_G(\mu,\varepsilon)
- \ \leq\ R_{\varepsilon/2}(\mu).
+Q_G^{\mathrm{mean}}(\mu,\varepsilon)
+=\sum_{q=0}^{d-1}\bigl(\beta_q-\varepsilon/2\bigr)_+,
+\qquad (x)_+=\max\{x,0\}.
 ```
 
-The error is the unhalved diamond norm. More explicitly:
-
-- If $`r\geq0`$ is an integer with $`\Pr[D>r]\leq\varepsilon/2`$, there is a trace-preserving implementation using at most $`r`$ generator queries on every branch.
-- If $`m\geq1`$ is an integer with $`\Pr[D\geq m]>\varepsilon`$, every such worst-case simulator uses at least $`m/4`$ queries. Since the query count is an integer, the lower bound can be rounded up.
-
-The lower bound allows coherent SELECT, its inverse, external control, arbitrary ancillas, and adaptive known processing. It does not assume that the simulator follows a trajectory or returns a sampled group endpoint.
-
-The two bounds use different tail-error levels. Without assumptions on the law, their radii can differ substantially. The theorem is therefore an error-shifted quantile bracket, rather than a same-error identity or an unrestricted expectation law.
+The same sampler attains every tail in this sum. Both statements allow coherent SELECT, its inverse, external control, ancillas and adaptive known processing. The algorithm can depend on the target dimension, and must work for every representation of that dimension. The upper guarantees are uniform over inputs, including states entangled with an untouched reference.
 
 ## A capped geodesic implementation
 
-For each $`g\in G`$, fix a known geodesic word
+Sample $`g\sim\mu`$ and apply a shortest representing word if $`\ell(g)\le q`$. Otherwise return the input by applying the identity. The implemented channel is
 
 ```math
- g=s_{\ell(g)}\cdots s_1.
+\widetilde\Phi^{(q)}_{\pi,\mu}
+=\sum_{\ell(g)\le q}\mu(g)\mathrm{Ad}_{\pi(g)}+\beta_q\mathrm{Id}.
 ```
 
-Sample $`g\sim\mu`$. If $`\ell(g)\leq r`$, apply the corresponding generator queries in order. Otherwise apply the identity. The output map is
+Every branch belongs to the delivered trace-preserving map, and every retained word uses at most $`q`$ queries. Each difference $`\mathrm{Ad}_{\pi(g)}-\mathrm{Id}`$ has diamond norm at most two, so this implementation has error at most $`2\beta_q`$.
+
+## Radial signs in an exact representation
+
+For an integer $`K\ge2`$, use $`K`$ copies of the left regular representation. For each copy $`j`$ and depth $`h=1,\ldots,d`$, choose an independent uniform sign $`x_{j,h}`$. Let
 
 ```math
-\widetilde\Phi^{(r)}_{\pi,\mu}
- =\sum_{\ell(g)\leq r}\mu(g)\mathrm{Ad}_{\pi(g)}
-   +\beta_r\mathrm{Id},
+a_j(g)=\prod_{h=1}^{\ell(g)}x_{j,h},
 \qquad
-\beta_r=\Pr[D>r].
+T_x|j,g\rangle=a_j(g)|j,g\rangle,
+\qquad
+\pi_x(g)=T_x(I_K\otimes L_g)T_x,
 ```
 
-It is a convex combination of channels, so every branch is part of a completely positive, trace-preserving implementation. The discarded event does not become postselection. Every retained word uses at most $`r`$ queries. By the triangle inequality and the fact that a channel has diamond norm one,
+where $`L_g|u\rangle=|gu\rangle`$ and an empty product is one. The same conjugation applies to every element and $`T_x^2=I`$, so each $`\pi_x`$ obeys all relations in $`G`$ exactly. One generator step changes $`\ell(u)`$ by at most one. Therefore every nonzero matrix entry of a controlled SELECT call, forward or inverse, is one or a single sign. If the distance stays the same, the two prefixes cancel completely. If it changes by one, precisely the sign at the larger depth remains.
+
+After at most $`q`$ calls, each entry of the simulator's output density matrix on a fixed input is a polynomial of degree at most $`2q`$ in the signs. Conjugating by an oracle adds at most one degree on each side of the density matrix, and known operations are linear in its entries. For adaptive processing, the same count applies to unnormalized branches and their sum. Equivalently, a circuit can keep measurement outcomes coherently and pad terminal branches with the identity using controlled SELECT. Replacing $`x_{j,h}^2`$ by one makes the polynomials multilinear without increasing their degree. Distinct products of signs are orthogonal under the uniform sign law. This is the polynomial-method degree argument, applied directly to the supplied representation instead of compiling each query into a separate bit oracle.
+
+## A measurement of distant coherence
+
+Use the same input for every sign assignment,
 
 ```math
-\begin{aligned}
-\lVert \Phi_{\pi,\mu}-\widetilde\Phi^{(r)}_{\pi,\mu}\rVert _{\diamond}
-&=\left\lVert 
-  \sum_{\ell(g)>r}\mu(g)
-       \bigl(\mathrm{Ad}_{\pi(g)}-\mathrm{Id}\bigr)
-  \right\rVert _{\diamond} \\
-&\leq 2\beta_r.
-\end{aligned}
+|\psi_{\rm in}\rangle=\frac1{\sqrt K}\sum_{j=1}^K|j,e\rangle.
 ```
 
-The estimate is independent of the representation, the target dimension, the input state, and any reference entanglement. Choosing $`r=R_{\varepsilon/2}(\mu)`$ proves the upper bound.
-
-This construction establishes an upper bound on oracle calls. Sampling $`\mu`$ and obtaining a geodesic are known computations whose time and storage are separate resources. Their existence on a finite group does not establish that they are efficient.
-
-## A representation that encodes distance parity
-
-Fix an integer $`m\geq1`$ and an unknown Boolean string $`x=(x_1,\ldots,x_m)`$. Define the capped prefix parity
+The ideal channel produces a mixture of states with one pure state for each endpoint,
 
 ```math
- F_x(k)=\bigoplus_{i=1}^{\min\{k,m\}}x_i,
-\qquad F_x(0)=0.
+|\psi_g(x)\rangle=\frac1{\sqrt K}\sum_{j=1}^K a_j(g)|j,g\rangle,
+\qquad
+\rho_x^{\rm ideal}=\sum_{g\in G}\mu(g)|\psi_g(x)\rangle\langle\psi_g(x)|.
 ```
 
-On a group register and an answer qubit, define
+Let $`\Pi_g`$ project onto the $`K`$-dimensional subspace spanned by the copies of $`g`$. For a given budget $`q`$, use the effect
 
 ```math
- T_x|g,b\rangle
-   =|g,b\oplus F_x(\ell(g))\rangle.
+E_{x,q}
+=\sum_{\ell(g)>q}|\psi_g(x)\rangle\langle\psi_g(x)|
++\frac1K\sum_{\ell(g)\le q}\Pi_g.
 ```
 
-The operator $`T_x`$ is unitary and self-inverse. Let $`L_g`$ denote the known left regular representation, $`L_g|h\rangle=|gh\rangle`$, and supply the representation
+The endpoint subspaces are orthogonal, so the operator lies between zero and the identity. Its ideal acceptance is $`\beta_q+(1-\beta_q)/K`$. In a far endpoint block, the diagonal coefficients of the effect are $`1/K`$. The coefficient between distinct copies $`j`$ and $`k`$ is proportional to $`a_j(g)a_k(g)`$, a product of $`2\ell(g)>2q`$ independent signs. Its correlation with each $`q`$-query output entry vanishes by orthogonality. The near blocks already contribute their diagonal trace divided by $`K`$. Consequently the acceptance on any $`q`$-query simulator, averaged over the sign assignments, is exactly $`1/K`$.
+
+The test may depend on $`x`$ because it witnesses the trace distance on the representation chosen for the lower bound. No access to that test is required of the simulator. A difference in acceptance is at most half the trace norm of the output difference. Thus in dimension $`K|G|`$, some represented channel has unhalved diamond error at least
 
 ```math
- \pi_x(g)=T_x(L_g\otimes I)T_x.
+2\beta_q(1-1/K)
 ```
 
-It obeys all group relations exactly:
+for every candidate simulator. Taking the supremum over finite dimensions yields $`2\beta_q`$. The capped sampler attains this uniform error bound. In particular, equality at $`\beta_q=\varepsilon/2`$ qualifies for the stated query cap. At a prescribed finite dimension, the construction gives the displayed finite-$`K`$ bound whenever that many copies fit. Extra dimensions may carry a trivial representation, with the measurement effect set to the identity divided by the number of copies on that block.
+
+## Classical stopping and the exact mean
+
+Consider an $`\varepsilon`$-accurate simulator with a classical record of whether it will make another call. Its query count is $`N`$. For each $`q`$, form a capped version that aborts just before call $`q+1`$ and returns a fixed valid state on those histories. Outputs on histories with $`N\le q`$ are identical. For any effect, the acceptance difference between the capped and original simulator is therefore at most $`\Pr_x(N>q)`$ on the fixed input above. The subscript denotes the representation, with probability over the simulator's recorded histories.
+
+For the effect $`E_{x,q}`$, accuracy bounds the original acceptance below by the ideal acceptance minus $`\varepsilon/2`$. The capped simulator has average acceptance $`1/K`$ by the hard-cap proof. Therefore
 
 ```math
-\begin{aligned}
-\pi_x(g)\pi_x(h)
- &=T_x(L_g\otimes I)T_x^2(L_h\otimes I)T_x \\
- &=T_x(L_{gh}\otimes I)T_x
- =\pi_x(gh).
-\end{aligned}
+\mathbb E_x\Pr_x(N>q)
+\ge\bigl[(1-1/K)\beta_q-\varepsilon/2\bigr]_+.
 ```
 
-In particular, inverse and commutation promises remain valid. This is an admissible representation of dimension $`2|G|`$. A qubit implementation can pad it by a trivial representation if a power-of-two target dimension is required.
+All these inequalities use the same dimension, sign ensemble and input, so their sum bounds the ensemble average of the expected query count. Indeed, $`\mathbb E_x\mathbb E[N\mid x]`$ is at least the sum of the left sides for $`q=0,\ldots,d-1`$. The uniformly guaranteed expected budget must be at least that average. Taking $`K`$ arbitrarily large gives the lower bound for $`Q_G^{\mathrm{mean}}`$.
 
-The lower argument does not assume a free implementation of $`T_x`$. It implements only the supplied generators by the following local compiler.
-
-## Two ordinary bit queries implement a controlled generator
-
-Use the standard Boolean oracle
+For achievability, remove mass $`m=\min\{\varepsilon/2,\beta_0\}`$ from the farthest nonidentity distances, and redirect it to the identity. If a distance shell straddles the cutoff, thin it with a known probability chosen to remove the required fraction. Sample from the resulting law and apply a shortest word. The change in each branch redirected to the identity has diamond cost at most two per unit mass, so the error is at most $`2m\le\varepsilon`$. The original shell union $`\{D>q\}`$ loses exactly $`\min\{m,\beta_q\}`$ of its mass. Thus the actual query count of this sampler satisfies
 
 ```math
- O_x|i,z\rangle=|i,z\oplus x_i\rangle,
-\qquad i\in\{1,\ldots,m\}.
+\Pr(N>q)=\beta_q-\min\{m,\beta_q\}
+=(\beta_q-\varepsilon/2)_+
+\qquad(q\ge0).
 ```
 
-Consider a generator label $`s`$, a group state $`g`$, and an external control bit $`c`$, all of which may occur coherently. Put
-
-```math
- h=\begin{cases}sg,&c=1,\\g,&c=0,\end{cases}
-\qquad d=\ell(g),\quad d'=\ell(h).
-```
-
-The metric inequality gives $`|d-d'|\leq1`$. Consequently
-
-```math
-F_x(d)\oplus F_x(d')
- =\begin{cases}
- x_{\max\{d,d'\}},&d\neq d'\text{ and }\max\{d,d'\}\leq m,\\
- 0,&\text{otherwise}.
- \end{cases}
-```
-
-Known reversible group and metric arithmetic computes an active flag $`a`$ for the first case and its address $`i=\max\{d,d'\}`$. On inactive branches choose the valid dummy address $`i=1`$. This is possible because $`m\geq1`$; no additional oracle address with a promised zero bit is needed.
-
-The circuit performs the following sequence:
-
-1. Compute $`a`$ and $`i`$ into clean known work registers, retaining $`c,s,g`$.
-2. Query $`O_x`$ into a clean buffer bit $`z`$.
-3. Flip the answer qubit by $`z`$ controlled on $`a=1`$.
-4. Query $`O_x`$ again to erase $`z`$.
-5. Uncompute the address, flag, and known arithmetic, then apply the known group shift $`g\mapsto h`$ controlled on $`c`$.
-
-The resulting action is exactly the externally controlled $`\pi_x(s)`$. Inactive branches may query an unknown dummy bit, but the two calls erase it and perform no answer flip. All work is restored. The argument is linear on superpositions, so it implements coherent selection over $`s`$ as well as a fixed generator. Replacing $`s`$ by $`s^{-1}`$ covers inverse calls and SELECT inverses with the same two-query cost.
-
-There is no free controlled Boolean-oracle assumption in this compiler. Both oracle invocations are ordinary $`O_x`$ calls; the conditional action is supplied by known reversible computation between them. Thus every permitted supplied-generator query of a simulator can be replaced by at most two Boolean queries, including in an adaptive algorithm.
-
-## The channel reveals full parity above a known radius
-
-Use the input $`|e,0\rangle`$, which is independent of $`x`$. Since $`T_x|e,0\rangle=|e,0\rangle`$,
-
-```math
- \pi_x(g)|e,0\rangle
-   =|g,F_x(\ell(g))\rangle.
-```
-
-The ideal channel output is therefore
-
-```math
- \Phi_{\pi_x,\mu}(|e,0\rangle\!\langle e,0|)
- =\sum_{g\in G}\mu(g)
-  |g,F_x(\ell(g))\rangle\!\langle g,F_x(\ell(g))|.
-```
-
-Measure the group register and answer bit. If $`\ell(g)\geq m`$, return the answer; otherwise return an independent fair bit. Writing
-
-```math
- p_m=\Pr[D\geq m],
-```
-
-the exact procedure returns the full parity $`\bigoplus_{i=1}^m x_i`$ with success probability
-
-```math
- \frac12+\frac{p_m}{2}
-```
-
-on every Boolean input. The group-measurement flag is known and its distribution does not depend on $`x`$.
-
-Now replace the ideal channel by any simulator satisfying the uniform diamond guarantee. Its parity success probability is at least
-
-```math
- \frac12+\frac{p_m-\varepsilon}{2}.
-```
-
-This follows from the measurement-probability bound for the unhalved diamond convention. It does not require that the simulator expose its internal trajectory or that its output have the ideal block-diagonal form. If $`p_m>\varepsilon`$, the success bias is strictly positive on every input.
-
-## Positive bias suffices for the parity obstruction
-
-A quantum algorithm using at most $`k`$ ordinary Boolean-oracle queries has an acceptance probability given on Boolean inputs by a multilinear polynomial of degree at most $`2k`$. This is the polynomial method of [Beals, Buhrman, Cleve, Mosca and de Wolf](https://arxiv.org/abs/quant-ph/9802049).
-
-Here the compiled simulator uses at most $`2q`$ Boolean queries. If $`P(x)`$ is its final probability of returning one, then $`H(x)=1-2P(x)`$ has degree at most $`4q`$. Let
-
-```math
- \chi(x)=(-1)^{x_1+\cdots+x_m}.
-```
-
-Strictly positive parity bias gives
-
-```math
- \chi(x)H(x)\geq p_m-\varepsilon>0
- \quad\text{for every }x.
-```
-
-Every multilinear polynomial of degree less than $`m`$ is orthogonal to $`\chi`$ under the uniform Boolean law: each monomial omits a variable whose signed average is zero. If $`4q\lt m`$, it would follow that
-
-```math
- 2^{-m}\sum_x\chi(x)H(x)=0,
-```
-
-contradicting the strict positive lower bound. Hence $`4q\geq m`$.
-
-This proof needs no amplification and no bias bounded away from zero as parameters vary. The assumption $`p_m>\varepsilon`$ is therefore sufficient even near a quantile boundary. The polynomial bound applies to adaptive measurements and randomness by deferring measurements, or equivalently by the usual acceptance-probability argument for a maximum-query algorithm. It does not apply to free postselection or replace the maximum-query convention by an expected-query convention.
-
-Finally, if $`R_{\varepsilon}(\mu)>0`$, minimality of that radius gives
-
-```math
- \Pr[D\geq R_{\varepsilon}(\mu)]
- =\Pr[D>R_{\varepsilon}(\mu)-1]>\varepsilon.
-```
-
-Take $`m=R_{\varepsilon}(\mu)`$. If that radius is zero, the lower bound is trivial. This completes Theorem 1, including the integer and exact-error cases.
+The tail-sum formula proves the exact mean. The trimming rule uses the known endpoint law to determine the cutoff and tie probability. Exact classical sampling of the designated law is part of the oracle-cost model.
 
 ## Numerical laws and reserved error
 
-For any two endpoint laws,
+For two laws $`\mu`$ and $`\widehat\mu`$, their random-unitary channels differ in diamond norm by at most $`2\mathrm{TV}(\mu,\widehat\mu)`$. In particular, if a numerical sampler approximates the designated trimmed law to total-variation error at most $`\delta`$, the error bound is $`2m+2\delta`$ plus any gate error. The same reasoning gives $`2\beta_q+2\delta`$ for a hard cap when the sampled law is pushed through the exact cutoff. Certified approximate sampling and gate synthesis need a reserved portion of the error budget. See [Algorithms and resources](algorithms-and-resources.md) for a finite-bit implementation account.
 
-```math
- \lVert \Phi_{\pi,\mu}-\Phi_{\pi,\widehat\mu}\rVert _{\diamond}
- \leq\sum_g|\mu(g)-\widehat\mu(g)|
- =2\lVert \mu-\widehat\mu\rVert _{\mathrm{TV}}.
-```
+## From the tail law to escape rates
 
-Let $`C_r(g)`$ retain $`g`$ when $`\ell(g)\leq r`$ and otherwise replace it by $`e`$. If the implemented sampler has total-variation error at most $`\delta`$, its capped pushforward differs from the ideal capped pushforward by at most $`\delta`$. The implemented channel therefore satisfies
+For a family of endpoint distances $`D_t`$ and a scale $`a_t`$, the hard-cap formula gives $`\Theta(a_t)`$ queries at fixed error when $`\Pr(D_t\ge ca_t)>\varepsilon/2`$ and $`\Pr(D_t>Ca_t)\le\varepsilon/2`$ for suitable constants $`c,C>0`$, with integer rounding. A lower bound on $`\mathbb E D_t`$ together with a matching upper bound on $`\mathbb E D_t^2`$ gives the required lower-tail estimate for sufficiently small fixed error by Paley–Zygmund. An upper bound on $`\mathbb E D_t`$ gives the upper quantile by Markov. The [wreath-product analysis](wreath-product.md) instead proves its required upper and lower quantiles directly and [transfers them to finite groups](finite-quotients.md).
 
-```math
- \lVert \Phi_{\pi,\mu}-\widetilde\Phi_{\pi}\rVert _{\diamond}
- \leq 2\Pr[D>r]+2\delta.
-```
+For a law that puts probability $`b`$ on one endpoint of length $`L>0`$ and the remainder on the identity, the optimal hard cap is zero for $`b\le\varepsilon/2`$ and $`L`$ for $`b>\varepsilon/2`$. The optimal mean is $`L(b-\varepsilon/2)_+`$. The raw mean escape $`bL`$ can be large below the cutoff. The location of the tail relative to the error budget determines the operational cost.
 
-This establishes a concrete finite-precision version of the upper bound whenever the sampler and its total-variation certificate are supplied. Approximate tail evaluation must leave a proved margin in this inequality. The exact-law theorem does not certify a numerical sampler or charge its execution time. The lower theorem concerns the exact target law; if a different law is chosen as the target, its tail probabilities must be used instead.
+The [related-work comparison](../references/related-work.md) credits the inherited group twirl, word cancellation and polynomial method, and compares the coherence witness with the earlier parity argument.
 
-## Turning the bracket into an escape-rate law
-
-For a family of laws $`\mu_t`$ and a positive scale $`a_t`$, the quantile bracket yields $`Q_G(\mu_t,\varepsilon)=\Theta(a_t)`$ at a fixed error when there are constants $`c,C>0`$ for which
-
-```math
- \Pr[D_t\geq c a_t]>\varepsilon,
- \qquad
- \Pr[D_t>C a_t]\leq\varepsilon/2,
-```
-
-with harmless integer rounding for sufficiently large $`a_t`$. Those are properties of the actual law; a claim about the mean alone does not supply them.
-
-A useful sufficient condition at sufficiently small fixed error is a two-moment comparison,
-
-```math
- \mathbb E D_t\geq c_0a_t,
- \qquad
- \mathbb E D_t^2\leq C_0a_t^2.
-```
-
-Paley-Zygmund gives
-
-```math
- \Pr[D_t\geq \tfrac12\mathbb E D_t]
- \geq\frac{(\mathbb E D_t)^2}{4\mathbb E D_t^2}
- \geq\frac{c_0^2}{4C_0},
-```
-
-while Markov gives an upper fixed quantile using $`\mathbb E D_t\leq\sqrt{C_0}a_t`$. Thus these moment assumptions prove a matching law for each fixed $`\varepsilon\lt c_0^2/(4C_0)`$. A claim at larger fixed error needs a stronger lower-quantile estimate. The [wreath-product analysis](wreath-product.md) supplies the estimates used for its own error regime, and the [finite-quotient analysis](finite-quotients.md) accounts for their transfer to finite groups.
-
-The need for quantiles is substantive. For example, let $`\mu=(1-\alpha)\delta_e+\alpha\delta_g`$, where $`\ell(g)=L`$ and $`0\lt \alpha\leq\varepsilon/2`$. Returning the identity uses zero queries and has diamond error at most $`2\alpha\leq\varepsilon`$, even though
-
-```math
- \mathbb E D=\alpha L
-```
-
-can grow without bound in a family of groups. Therefore $`Q=\Theta(\mathbb E D)`$ is false for arbitrary laws at fixed positive error.
-
-## Relation to earlier mechanisms
-
-The stochastic expansion of a random-unitary generator, algebraic word cancellation, and the parity query lower bound are inherited ingredients. A tree-based radial parity implementation appears in [Quantum-Dephasing-Threshold](https://github.com/GoGoKo699/Quantum-Dephasing-Threshold), including its [lower-bound account](https://github.com/GoGoKo699/Quantum-Dephasing-Threshold/blob/main/science/lower-bounds.md).
-
-The global conjugation above makes the hard oracles a representation of the entire finite group. It therefore preserves relations involving cycles and commuting translated generators while still supporting arbitrary coherent known controls. This is the step used to pass from a tree-specialized cancellation argument to the finite-group, arbitrary-law, error-quantile theorem. The [related-work comparison](../references/related-work.md) distinguishes this statement from other notions of random-walk and Lindbladian fast forwarding.
+[Model](model.md) · [Algorithms and resources](algorithms-and-resources.md) · [Interpretation](interpretation.md)

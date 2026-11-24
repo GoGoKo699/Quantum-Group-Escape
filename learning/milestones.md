@@ -1,10 +1,10 @@
 # Thirty milestones for understanding group-escape simulation
 
-This map follows one scientific story: a known random word can have a short endpoint description, and a representation-preserving parity construction can make that endpoint distance an unavoidable quantum-query cost. The final example connects the theorem to the occupation times of a cursor-and-lamps walk.
+This map follows one scientific story: a known random word can have a short endpoint description, and coherence across independently signed representations makes that endpoint distance an unavoidable quantum-query cost. The final example connects the theorem to the occupation times of a cursor-and-lamps walk.
 
-The first **12 milestones are background/preliminaries**. They assemble the state, algebra, oracle, probability and error notions needed to state the task. The remaining **18 milestones are narrative/innovation**. They connect the upper and lower mechanisms, then build the finite nonabelian example and assess its complete resource scope. Each phase proceeds from individual objects to an integrated account. The map covers the load-bearing scientific ideas, rather than every calculation or neighboring subject.
+The first **12 milestones are background/preliminaries**. They assemble the state, algebra, oracle, probability and error notions needed to state the task. The remaining **18 milestones are narrative/innovation**. They establish the exact hard and expected costs, then build the finite nonabelian example and assess its complete resource scope. Each phase proceeds from individual objects to an integrated account. The map covers the load-bearing scientific ideas, rather than every calculation or neighboring subject.
 
-The single educational anchor is Andrew M. Childs, [*Lecture Notes on Quantum Algorithms*](https://www.cs.umd.edu/~amchilds/qa/), **17 April 2025**. Start with the [source bridge](childs-bridge.md) for the notation translation and worked finite-group example. Section numbers below refer to that version; page numbers are the notes' printed pages. Childs supplies the circuit, representation, query, polynomial and Hamiltonian-simulation foundations. Density-operator channels, diamond error, the Poisson group law, escape quantiles, occupation-time estimates and the new group-quantile proof are supplied in this repository. A source pointer to a nearby Childs topic does not attribute those project-specific extensions to the notes.
+The single educational anchor is Andrew M. Childs, [*Lecture Notes on Quantum Algorithms*](https://www.cs.umd.edu/~amchilds/qa/), **17 April 2025**. Start with the [source bridge](childs-bridge.md) for the notation translation and worked finite-group example. Section numbers below refer to that version; page numbers are the notes' printed pages. Childs supplies the circuit, representation, query, polynomial and Hamiltonian-simulation foundations. Density-operator channels, diamond error, the Poisson group law, escape quantiles, occupation-time estimates and the exact group-quantile and expected-cost proofs are supplied in this repository. A source pointer to a nearby Childs topic does not attribute those project-specific extensions to the notes.
 
 ## Background/preliminaries — M01–M12
 
@@ -54,7 +54,7 @@ The single educational anchor is Andrew M. Childs, [*Lecture Notes on Quantum Al
 
 **Conceptual connection:** Simultaneous conjugation preserves every relation and can conceal information in the implementation without changing the known group.
 
-**Source pointers:** Childs §11.1, printed pp. 47–48; [Model: unknown representation](../science/model.md#a-known-group-and-an-unknown-representation) and [Group quantiles: hard representation](../science/group-quantiles.md#a-representation-that-encodes-distance-parity).
+**Source pointers:** Childs §11.1, printed pp. 47–48; [Model: unknown representation](../science/model.md#a-known-group-and-an-unknown-representation) and [Group quantiles: hard representation](../science/group-quantiles.md#radial-signs-in-an-exact-representation).
 
 ### M05 — The oracle interface defines the counted resource
 
@@ -68,17 +68,17 @@ The single educational anchor is Andrew M. Childs, [*Lecture Notes on Quantum Al
 
 **Source pointers:** Childs §§21.1–21.2, printed pp. 97–98, and §28.3 for SELECT; [Model: primitives](../science/model.md#the-strongest-permitted-primitive) and [query quantifiers](../science/model.md#worst-case-query-cost-and-its-dimension-quantifier).
 
-### M06 — Reversible arithmetic and clean uncomputation
+### M06 — Known routing and coherent control
 
-**Central question:** How can a quantum circuit compute an address, use an unknown bit and restore its temporary work coherently?
+**Central question:** Which operations can a circuit perform on a generator's address without learning the unknown representation?
 
-**Understanding target:** Explain compute, conditional copy and uncompute without measuring a superposed address. Track the distinction between known reversible calculations and calls to unknown data.
+**Understanding target:** Explain coherent address selection, known relabelling for inverse calls and restoring temporary arithmetic registers. Distinguish the known routing operations from the charged invocation of the selected generator.
 
-**Dependencies and story role:** Requires M01 and M05. It provides the circuit mechanism needed by the lower-bound oracle compiler.
+**Dependencies and story role:** Requires M01 and M05. It prepares the controlled-generator model used in the lower bound.
 
-**Conceptual connection:** A costly global unknown transformation may have a locally cheap conjugated generator; temporary known arithmetic does not supply that unknown transformation for free.
+**Conceptual connection:** A control branch may invoke the identity while other branches apply an unknown represented generator. These fixed control labels do not add dependence on the hidden signs.
 
-**Source pointers:** Childs §1.4, printed p. 2, and §21.2; [Group quantiles: two-query compiler](../science/group-quantiles.md#two-ordinary-bit-queries-implement-a-controlled-generator).
+**Source pointers:** Childs §1.4, printed pp. 2–3, and §21.2; [Model: primitives](../science/model.md#the-strongest-permitted-primitive) and [signed representation](../science/group-quantiles.md#radial-signs-in-an-exact-representation).
 
 ### M07 — Random histories and their endpoint law
 
@@ -116,17 +116,17 @@ The single educational anchor is Andrew M. Childs, [*Lecture Notes on Quantum Al
 
 **Source pointers:** Childs §27.2 for the accuracy/resource setting; [Group quantiles: theorem definitions](../science/group-quantiles.md#the-finite-group-theorem) and [numerical laws](../science/group-quantiles.md#numerical-laws-and-reserved-error). Tail and total-variation arguments are supplied locally.
 
-### M10 — Parity as a query obstruction
+### M10 — Query degree and products of independent signs
 
-**Central question:** Why does even a very small positive advantage in predicting all input-bit parity require many Boolean queries?
+**Central question:** Why can a low-degree polynomial have no correlation with a product of more independent signs than its degree?
 
-**Understanding target:** Connect a query algorithm to a low-degree acceptance polynomial and explain why parity cannot correlate positively with a polynomial missing its full degree. Keep the maximum-query convention visible.
+**Understanding target:** Explain polynomial degree growth under an oracle query and orthogonality of the products of independent uniform signs. Reduce repeated signs using their squared value of one.
 
-**Dependencies and story role:** Requires M05 and M06. It introduces the general lower-bound tool before the project embeds it in a representation.
+**Dependencies and story role:** Requires M05 and M06. It supplies the lower-bound tool before the project embeds signs into a group representation.
 
-**Conceptual connection:** A simulator can be ruled out by turning its output into a parity prediction; the bias need not be large or amplified.
+**Conceptual connection:** The proof compares the degree of an individual output density-matrix entry with the degree required for matching coherence between two independently signed blocks.
 
-**Source pointers:** Childs §§21.2–21.3 and §21.5, printed pp. 98–100; [Group quantiles: positive-bias argument](../science/group-quantiles.md#positive-bias-suffices-for-the-parity-obstruction).
+**Source pointers:** Childs §§21.2–21.3 and §21.5, printed pp. 98–100; [Group quantiles: coherence witness](../science/group-quantiles.md#a-measurement-of-distant-coherence).
 
 ### M11 — Conditional randomness and useful moment bounds
 
@@ -144,7 +144,7 @@ The single educational anchor is Andrew M. Childs, [*Lecture Notes on Quantum Al
 
 **Central question:** What precisely is being optimized before any group-escape result is used?
 
-**Understanding target:** State the known group and law, unknown represented primitives, arbitrary-input channel output, unhalved error, hard serial-query cap and uniformity over representations and finite dimensions. Identify classical work as an additional resource.
+**Understanding target:** State the known group and law, unknown represented primitives, arbitrary-input channel output, unhalved error, hard serial-query cap, classical stopping and uniformity over representations and finite dimensions. Identify classical work as an additional resource.
 
 **Dependencies and story role:** Requires M01–M11. This closes the background phase by assembling its local notions into the full operational task.
 
@@ -190,77 +190,77 @@ The single educational anchor is Andrew M. Childs, [*Lecture Notes on Quantum Al
 
 **Source pointers:** Childs §2.1 and §27.2; [Group quantiles: numerical laws](../science/group-quantiles.md#numerical-laws-and-reserved-error) and [Resources: full error budget](../science/algorithms-and-resources.md#finite-precision-and-the-full-error-budget).
 
-### M16 — One global gauge preserves every relation
+### M16 — Independent radial signs preserve every group relation
 
-**Central question:** How can unknown parity be hidden in a family of generators without violating cycles or commutation promises?
+**Central question:** How can unknown signs be assigned to an entire representation while preserving cycles and commutation relations?
 
-**Understanding target:** Explain the capped prefix-parity transformation, its action on a regular register and answer qubit, and simultaneous conjugation of all generators. Show why this produces a genuine representation of the entire known group.
+**Understanding target:** Take several independent copies of the regular action. In each block, assign the basis state at distance $`\ell`$ the product of that block's first $`\ell`$ signs, and conjugate every generator by the resulting diagonal unitary.
 
-**Dependencies and story role:** Requires M04, M10 and M12. It introduces the hard family that makes the converse apply beyond tree-like relations.
+**Dependencies and story role:** Requires M03, M04, M10 and M12. It constructs hard instances of the same exact group representation promised to the simulator.
 
-**Conceptual connection:** Algebraic structure helps the upper algorithm and also constrains its adversarial input; the common conjugation keeps that input inside the same promise.
+**Conceptual connection:** The local change of distance controls each generator entry. The whole-prefix product remains visible in the effect of a distant group element on the identity.
 
-**Source pointers:** Childs §11.1; [Group quantiles: hard representation](../science/group-quantiles.md#a-representation-that-encodes-distance-parity).
+**Source pointers:** Childs §11.1; [Group quantiles: radial signs](../science/group-quantiles.md#radial-signs-in-an-exact-representation).
 
-### M17 — A global unknown gauge has a local two-query compiler
+### M17 — Each supplied call adds at most two degrees to the output
 
-**Central question:** Why does applying one gauged generator need only two ordinary input-bit queries rather than the full unknown prefix parity?
+**Central question:** How does a one-step distance change constrain the sign dependence of a simulator that uses many coherent calls?
 
-**Understanding target:** Use the one-step distance inequality to identify a single active bit. Track the valid dummy address, clean buffer, conditional copy, uncomputation, inverse and coherent SELECT branches.
+**Understanding target:** Show that a generator entry contains at most one sign. Apply the same argument to inverse and controlled generators, then track how a matrix factor on each side of a density operator adds at most two degrees per call.
 
-**Dependencies and story role:** Requires M03, M05, M06 and M16. It supplies the load-bearing reduction between the physical primitive interface and the Boolean oracle model.
+**Dependencies and story role:** Requires M03, M05, M06, M10 and M16. It gives a bound that uses the supplied oracle calls directly.
 
-**Conceptual connection:** The hard representation is not free to apply, but its individual generators have an exact low-query compiler independent of the unknown bits.
+**Conceptual connection:** Sign-independent interleavings act linearly on density matrices. They preserve the polynomial bound even when they use ancillas or store measurement outcomes.
 
-**Source pointers:** Childs §1.4 and §21.2; [Group quantiles: controlled two-query compiler](../science/group-quantiles.md#two-ordinary-bit-queries-implement-a-controlled-generator).
+**Source pointers:** Childs §§21.2–21.3; [Group quantiles: radial signs](../science/group-quantiles.md#radial-signs-in-an-exact-representation) and [coherence measurement](../science/group-quantiles.md#a-measurement-of-distant-coherence).
 
-### M18 — A distant endpoint reveals complete parity
+### M18 — A distant endpoint carries coherence across blocks
 
-**Central question:** What measurable information does the ideal channel carry when its endpoint passes the chosen radius?
+**Central question:** What changes in the ideal output after a long group element acts on a superposition of block identities?
 
-**Understanding target:** Follow the representation on the fixed input at the identity, recognize the known distance flag, and explain the fair-bit fallback below the threshold. Derive how channel error reduces the parity advantage.
+**Understanding target:** Calculate an off-diagonal entry between two different blocks at endpoint $`g`$. Identify its product of $`2\ell(g)`$ independent signs. Explain how a projection onto the ideal signed state, with its diagonal part subtracted, measures just this coherence.
 
-**Dependencies and story role:** Requires M08, M10, M16 and M17. It connects the hard oracle construction to an observable computational consequence.
+**Dependencies and story role:** Requires M08, M10, M16 and M17. It converts the degree bound into a channel error witness.
 
-**Conceptual connection:** The flag is measured on the delivered output, so the argument does not assume access to the simulator's internal trajectory.
+**Conceptual connection:** A correct classical endpoint histogram can preserve every diagonal probability while missing every long-distance coherence tested by the witness.
 
-**Source pointers:** Childs §§21.2 and 21.5; [Group quantiles: parity above a radius](../science/group-quantiles.md#the-channel-reveals-full-parity-above-a-known-radius).
+**Source pointers:** Childs §§21.3 and 21.5; [Group quantiles: coherence measurement](../science/group-quantiles.md#a-measurement-of-distant-coherence).
 
-### M19 — The converse defeats arbitrary coherent algorithms
+### M19 — Tail probability sets the minimum channel error for a hard cap
 
-**Central question:** Why does the parity reduction rule out a simulator that uses a completely different coherent strategy?
+**Central question:** Why does a $`q`$-call simulator face diamond error at least twice the probability that the ideal endpoint has distance greater than $`q`$?
 
-**Understanding target:** Combine the two-query compiler with the acceptance-polynomial degree bound and the strictly positive parity bias. Account for arbitrary known interleavings, ancillas and adaptive measurements without assuming classical trajectory following.
+**Understanding target:** Use the range-one score to convert cross-block coherence into an error lower bound. Explain how the finite-case factor $`1-1/K`$ approaches one across admissible finite target dimensions.
 
-**Dependencies and story role:** Requires M05, M10, M17 and M18. It completes the lower mechanism at its actual oracle strength.
+**Dependencies and story role:** Requires M05, M08, M10, M17 and M18. It completes the converse without assuming a particular internal simulation strategy.
 
-**Conceptual connection:** The simulator is used as a subroutine of an ordinary Boolean-query algorithm, making the established parity obstruction applicable to every permitted strategy.
+**Conceptual connection:** The cap is uniform over finite representation dimensions. The witness can therefore use enough independent blocks to make the invisible coherence account for essentially all distant endpoint mass.
 
-**Source pointers:** Childs §§21.3–21.5; [Group quantiles: positive-bias lower proof](../science/group-quantiles.md#positive-bias-suffices-for-the-parity-obstruction).
+**Source pointers:** Childs §§21.3–21.5; [Group quantiles: coherence witness](../science/group-quantiles.md#a-measurement-of-distant-coherence).
 
-### M20 — Assembling the error-shifted quantile bracket
+### M20 — The exact hard escape quantile
 
-**Central question:** Which upper and lower tail thresholds follow from the two completed mechanisms?
+**Central question:** When does the trace-preserving geodesic cap meet the best possible error?
 
-**Understanding target:** State $`R_{\varepsilon}/4\leq Q\leq R_{\varepsilon/2}`$ with the unhalved convention, strict lower-tail condition, zero-radius case, integer rounding and uniform representation/dimension quantifiers. Explain why the different error levels are part of the statement.
+**Understanding target:** Combine the upper and lower proofs to obtain $`Q_G(\mu,\varepsilon)=R_{\varepsilon/2}(\mu)`$. Check the equality boundary, the zero-radius case, integer word lengths and the uniform dimension quantifier.
 
-**Dependencies and story role:** Requires M09, M12, M14, M15 and M19. It integrates the first part of the narrative into the general finite-group theorem.
+**Dependencies and story role:** Requires M09, M12, M14, M15 and M19. It completes the general finite-group result under a hard query budget.
 
-**Conceptual connection:** A short endpoint is sufficient to simulate, and enough probability on distant endpoints is sufficient to force many queries.
+**Conceptual connection:** The same overflow probability determines the geodesic scheme's error allowance and the coherence any simulator with that cap must miss.
 
-**Source pointers:** Childs §§21.1–21.5 for query lower-bound foundations; [Group quantiles: Theorem 1](../science/group-quantiles.md#the-finite-group-theorem) and [its lower-proof conclusion](../science/group-quantiles.md#positive-bias-suffices-for-the-parity-obstruction). The quantile theorem is project-specific.
+**Source pointers:** Childs §§21.1–21.5 for the lower-bound tools; [Group quantiles: exact theorem](../science/group-quantiles.md#the-finite-group-theorem). The quantile equality is project-specific.
 
-### M21 — A mean escape distance can give the wrong answer
+### M21 — The exact expected cost with classical stopping
 
-**Central question:** When can a tiny probability of a very distant endpoint inflate the mean without forcing queries at the requested error?
+**Central question:** What is the smallest worst-case average query count if branches may stop at different times?
 
-**Understanding target:** Explain the rare-long-endpoint counterexample and identify the upper/lower quantile conditions needed for a matching asymptotic law. Distinguish a two-moment small-error argument from a high-probability lower-escape estimate.
+**Understanding target:** Explain how truncating the simulator at each cutoff bounds the probability of needing more calls. Sum these bounds and derive the mean distance after removing the farthest $`\varepsilon/2`$ of probability mass, with partial replacement of a distance atom when needed.
 
-**Dependencies and story role:** Requires M09, M11 and M20. It establishes the additional evidence needed before an escape exponent is promoted to a query exponent.
+**Dependencies and story role:** Requires M09, M11, M14 and M20. It extends the hard result to classically observed stopping and shows why a rare long endpoint can affect the untrimmed mean without forcing a larger cap.
 
-**Conceptual connection:** The application must prove the tails relevant to its declared error, rather than insert an expected-distance formula into the theorem.
+**Conceptual connection:** The optimizer uses the same overflow error allowance for the hard and expected costs. The hard problem asks how far the retained distribution reaches, and the expected problem adds its remaining tail probabilities.
 
-**Source pointers:** Childs §27.2 for accuracy-dependent simulation as context; [Group quantiles: escape-rate conditions and counterexample](../science/group-quantiles.md#turning-the-bracket-into-an-escape-rate-law). The probability comparison is supplied locally.
+**Source pointers:** Childs §§21.2–21.3 and §27.2 for query and accuracy context; [Group quantiles: exact expected cost](../science/group-quantiles.md#classical-stopping-and-the-exact-mean). The stopping and trimming arguments are supplied locally.
 
 ### M22 — A cursor with integer lamps gives a nonabelian example
 
@@ -316,7 +316,7 @@ The single educational anchor is Andrew M. Childs, [*Lecture Notes on Quantum Al
 
 **Understanding target:** Explain the role of occupation-time self-intersection, the interpolation bound on square roots of occupation times, and the conditional mean/variance argument. Identify the fixed error and finite threshold covered by the resulting tail statement.
 
-**Dependencies and story role:** Requires M11, M21, M24 and M25. It resolves the decisive lower-tail issue before invoking the quantum converse.
+**Dependencies and story role:** Requires M11, M20, M24 and M25. It resolves the decisive lower-tail issue before invoking the quantum converse.
 
 **Conceptual connection:** Conditioning first controls the environment of the independent lamps; concentration afterward turns a large conditional mean into a useful escape quantile.
 
@@ -330,7 +330,7 @@ The single educational anchor is Andrew M. Childs, [*Lecture Notes on Quantum Al
 
 **Dependencies and story role:** Requires M03, M04, M22 and M23. It makes the infinite probability reference compatible with the finite-group theorem's input promise.
 
-**Conceptual connection:** Preserving all short relations and distances protects both the compressed upper and the parity radius in the finite hard representation.
+**Conceptual connection:** Preserving short distances keeps both the compressed words and the tail tested by the finite hard representation.
 
 **Source pointers:** Childs §11.1; [Finite quotients: group family](../science/finite-quotients.md#1-a-quotient-chosen-for-each-requested-time) and [metric-preservation proof](../science/finite-quotients.md#2-injectivity-and-exact-metric-preservation). The word-ball construction is supplied locally.
 
@@ -350,7 +350,7 @@ The single educational anchor is Andrew M. Childs, [*Lecture Notes on Quantum Al
 
 **Central question:** What does the completed result establish after classical work, access assumptions and closest prior mechanisms are counted?
 
-**Understanding target:** Distinguish sublinear unknown-generator calls from the direct sampler's linear classical event overhead and from a hardware advantage. Separate inherited random-walk exponents, parity machinery and other intermediate simulation exponents from the representation-uniform group-quantile contribution.
+**Understanding target:** Distinguish sublinear unknown-generator calls from the direct sampler's linear classical event overhead and from a hardware advantage. Attribute the random-walk exponent and query-polynomial method, and identify the exact cost formulas supplied by this project.
 
 **Dependencies and story role:** Requires M05, M15, M20, M21 and M28. It places the assembled theorem and example in their actual computational and scientific scope.
 
@@ -362,7 +362,7 @@ The single educational anchor is Andrew M. Childs, [*Lecture Notes on Quantum Al
 
 **Central question:** How do the channel, quantile theorem and finite wreath example form one connected scientific account?
 
-**Understanding target:** Explain the full chain from a known endpoint law to a short trace-preserving implementation, from the global gauge to an unrestricted query lower bound, and from finite escape quantiles to the declared three-quarter law. Retain the exact representation promise, error normalization, dimension growth, output requirements and total-resource limits in that explanation.
+**Understanding target:** Explain the full chain from a known endpoint law to a short trace-preserving implementation, from independently signed regular actions to hard and expected query lower bounds, and from finite escape quantiles to the declared three-quarter law. Retain the exact representation promise, error normalization, dimension growth, output requirements and total-resource limits in that explanation.
 
 **Dependencies and story role:** Requires M12, M20, M21, M28 and M29. This is the narrative phase's global synthesis, rather than another independent technical ingredient.
 

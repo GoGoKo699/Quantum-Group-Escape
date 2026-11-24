@@ -13,6 +13,7 @@ import collections
 import itertools
 import json
 import math
+from fractions import Fraction
 
 import numpy as np
 from scipy import sparse
@@ -187,6 +188,124 @@ def dyadic_round(law, bits):
     counts[order[:remaining]] += 1
     assert int(counts.sum()) == scale and np.all(counts >= 0)
     return counts / scale
+
+
+def verify_signed_witness(group, seed, copies=3):
+    """Average the finite signed-copy test against known interquery operations."""
+    rng = np.random.default_rng(seed)
+    index = {g: i for i, g in enumerate(group.states)}
+    distances = bfs(group)
+    metric = np.array([distances[g] for g in group.states])
+    diameter = int(metric.max())
+    shape = (1 + len(group.generators), copies, len(group.states))
+    dimension = math.prod(shape)
+    state = np.zeros(shape, dtype=complex)
+    state[0, :, index[group.identity]] = 1 / math.sqrt(copies)
+
+    def known_gate():
+        matrix = rng.normal(size=(dimension, dimension))
+        matrix = matrix + 1j * rng.normal(size=matrix.shape)
+        return np.linalg.qr(matrix)[0]
+
+    state = (known_gate() @ state.ravel()).reshape(shape)
+    # Keep both measurement branches with their original weights. Their forward
+    # and inverse SELECT choices alternate; selector zero bypasses the query.
+    branches = [state.copy(), state.copy()]
+    branches[0][1:] = 0
+    branches[1][0] = 0
+    interleavings = [[known_gate() for _ in range(diameter)] for _ in branches]
+    forward = [np.arange(len(group.states))] + [
+        np.array([index[group.mul(s, h)] for h in group.states])
+        for s in group.generators
+    ]
+    inverse = [np.argsort(p) for p in forward]
+    endpoint_weights = np.arange(1, len(group.states) + 1, dtype=float)
+    endpoint_weights /= endpoint_weights.sum()
+    acceptances = np.zeros(diameter + 1)
+    ideal_acceptances = np.zeros_like(acceptances)
+    assignments = 2 ** (copies * diameter)
+
+    for signs in itertools.product((-1, 1), repeat=copies * diameter):
+        increments = np.reshape(signs, (copies, diameter))
+        prefixes = np.column_stack((np.ones(copies, dtype=int),
+                                    np.cumprod(increments, axis=1)))
+        gauge = prefixes[:, metric]
+        ideal = gauge / math.sqrt(copies)
+        current = branches
+        for q in range(diameter + 1):
+            far = metric > q
+            for branch in current:
+                near_weight = np.sum(np.abs(branch[:, :, ~far]) ** 2)
+                far_overlap = np.sum(branch[:, :, far] * gauge[None, :, far], axis=1)
+                acceptances[q] += (near_weight + np.sum(np.abs(far_overlap) ** 2)) / copies
+            overlaps = np.sum(ideal[:, far] * gauge[:, far], axis=0) / math.sqrt(copies)
+            ideal_acceptances[q] += (np.sum(endpoint_weights[~far]) / copies
+                                     + endpoint_weights[far] @ np.abs(overlaps) ** 2)
+            if q == diameter:
+                break
+            updated = []
+            for b, branch in enumerate(current):
+                output = np.empty_like(branch)
+                permutations = inverse if (b + q) % 2 else forward
+                for selector, permutation in enumerate(permutations):
+                    next_metric = metric[permutation]
+                    assert np.all(np.abs(next_metric - metric) <= 1)
+                    address = np.maximum(np.maximum(next_metric, metric) - 1, 0)
+                    radial_phase = np.where(next_metric == metric, 1, increments[:, address])
+                    phase = gauge * gauge[:, permutation]
+                    assert np.array_equal(phase, radial_phase)
+                    output[selector][:, permutation] = branch[selector] * phase
+                updated.append((interleavings[b][q] @ output.ravel()).reshape(shape))
+            current = updated
+
+    acceptances /= assignments
+    ideal_acceptances /= assignments
+    gaps = ideal_acceptances - acceptances
+    predicted = [(1 - 1 / copies) * endpoint_weights[metric > q].sum()
+                 for q in range(diameter + 1)]
+    residual = float(np.max(np.abs(acceptances - 1 / copies)))
+    assert residual < 1e-12
+    assert np.max(np.abs(gaps - predicted)) < 1e-12
+    return {"group": group.name, "copies": copies, "sign_assignments": assignments,
+            "max_acceptance_residual": residual, "ideal_minus_test_acceptance": gaps.tolist()}
+
+
+def verify_runtime_profiles():
+    """Check exact tail subtraction and partial-atom trimming on a cyclic group."""
+    group = Cyclic(4)
+    distances = bfs(group)
+    lengths = [distances[g] for g in group.states]
+    law = tuple(Fraction(weight, 8) for weight in (1, 2, 3, 2))
+    diameter = max(lengths)
+    identity = group.states.index(group.identity)
+
+    def tails(weights):
+        return [sum(mass for length, mass in zip(lengths, weights) if length > q)
+                for q in range(diameter + 1)]
+
+    results = []
+    for budget in map(Fraction, (0, "1/8", "3/8", "1/2", "7/8", 1)):
+        trimmed = list(law)
+        remaining = budget
+        for i in sorted(range(len(law)), key=lengths.__getitem__, reverse=True):
+            if i == identity or remaining == 0:
+                break
+            removed = min(remaining, trimmed[i])
+            trimmed[i] -= removed
+            trimmed[identity] += removed
+            remaining -= removed
+        expected_tails = [max(0, tail - budget) for tail in tails(law)]
+        actual_tails = tails(trimmed)
+        assert actual_tails == expected_tails
+        assert sum(trimmed) == 1
+        assert sum(abs(a - b) for a, b in zip(law, trimmed)) == 2 * (budget - remaining)
+        mean = sum(length * weight for length, weight in zip(lengths, trimmed))
+        cap = max(length for length, weight in zip(lengths, trimmed) if weight)
+        assert mean == sum(actual_tails)
+        assert cap == actual_tails.index(0)
+        results.append({"half_error_budget": str(budget), "hard_cap": cap,
+                        "expected_queries": str(mean), "tails": list(map(str, actual_tails))})
+    return results
 
 
 def verify_group(group, seed):
@@ -384,6 +503,9 @@ def main():
         assert len(extra.cycle_word(endpoint)) == distance[endpoint]
     print(json.dumps({"passed": True, "seed_rule": "12000 + group index",
                       "groups": results,
+                      "signed_copy_witnesses": [verify_signed_witness(group, 6617)
+                                                 for group in (Cyclic(4), Dihedral(3))],
+                      "exact_runtime_profiles": verify_runtime_profiles(),
                       "additional_geodesic_instance": {"group": extra.name,
                                                        "endpoints_checked": len(extra.states)},
                       "poisson_cutoff_tests": cutoff_tests,

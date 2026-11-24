@@ -20,9 +20,15 @@ For a known endpoint law $`\mu`$, choose a deterministic word $`w(g)`$ represent
 2. Compute its representing word.
 3. If its length exceeds $`q`$, apply the identity channel. Otherwise apply the represented word in the representation's product convention.
 
-Every branch uses at most $`q`$ unknown-generator calls. Replacing a set of samples of probability $`\delta_{\rm word}`$ by the identity changes the channel by at most $`2\delta_{\rm word}`$. This is a trace-preserving replacement, with no postselection or conditional success convention.
+Every branch uses at most $`q`$ unknown-generator calls. Replacing a set of samples of probability $`\delta_{\rm word}`$ by the identity changes the channel by at most $`2\delta_{\rm word}`$. This trace-preserving replacement attains the [exact hard-cap error](group-quantiles.md) when $`w(g)`$ is a geodesic and the endpoint law is sampled exactly.
 
 Known group multiplication and word computation are classical tasks. A generic finite group specified by its multiplication table admits a breadth-first-search word table using $`O(|G||S|)`$ table operations and $`O(|G|)`$ stored vertices. That can be exponential in the number of bits naming a group element. The query theorem does not assert efficient generic geodesic computation.
+
+## Trimming for the exact expected cost
+
+With a known law and error allowance $`\varepsilon`$, compute the distances and remove mass $`m=\min\{\varepsilon/2,\Pr[D>0]\}`$ in decreasing order of distance. If the cumulative mass crosses $`m`$ within one shell, sample its draws as usual and independently redirect them to the identity with the required thinning probability. Return the input on redirected draws. Apply an exact geodesic on every remaining draw. This classical stopping rule realizes the [simultaneous tail bounds](group-quantiles.md#classical-stopping-and-the-exact-mean).
+
+The exact query theorem treats distances, shell probabilities and the cutoff as known computations and permits exact sampling from the designated law. With an approximate sampler, approximating the trimmed law to total variation $`\delta`$ contributes at most $`2\delta`$ additional diamond error. Reserve this allowance when choosing the trimming mass. The same reserve is needed for any other implementation error.
 
 ## Capped Poisson trajectory sampling
 
@@ -120,6 +126,6 @@ The generic upper algorithm stores only classical endpoint/word information beyo
 
 ## Finite verification
 
-[The finite verifier](../verification/check_finite_groups.py) checks cyclic, dihedral and wreath groups. It independently constructs group multiplication, the left regular representation and breadth-first-search distances; verifies the parity gauge and the two-bit-query compiler as exact permutations; checks representative defining relations and finite-cycle word lengths; and compares endpoint mixtures with a sparse Lindblad exponential on reference-entangled inputs.
+[The finite verifier](../verification/check_finite_groups.py) checks cyclic, dihedral and wreath groups. It independently constructs group multiplication, the left regular representation and breadth-first-search distances; checks the relation-preserving radial sign family and the coherence witness; checks representative defining relations and finite-cycle word lengths; and compares endpoint mixtures with a sparse Lindblad exponential on reference-entangled inputs.
 
 It also checks Poisson overflow and dyadic-law error diagnostics. These finite tests verify conventions and implementations. The general diamond bound, group-relation guarantee, quantile lower bound and wreath escape exponent remain analytical statements with the scope given in their proof accounts. No asymptotic exponent is inferred from the small finite examples.

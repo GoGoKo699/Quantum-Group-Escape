@@ -112,10 +112,10 @@ Let $`m_t=\lfloor ct^{3/4}\rfloor`$. For $`t\ge T`$ and $`m_t\ge1`$,
 >\epsilon.
 ```
 
-The representation-preserving parity lower bound therefore gives
+At any cap $`q\lt m_t`$, the tail probability exceeds $`\epsilon`$. The [two-copy coherence bound](group-quantiles.md#a-measurement-of-distant-coherence) then gives unhalved diamond error greater than $`\epsilon`$. In particular,
 
 ```math
-Q_{G_t}(t,\epsilon)\ge\frac{m_t}{4}.
+Q_{G_t}(t,\epsilon)\ge m_t.
 ```
 
 Together with the upper bound, this proves
@@ -156,7 +156,7 @@ There is a direct polynomial algorithm for $`\tau_L`$. Enumerate a cycle edge to
 
 Take the minimum over all deleted edges and the additional candidate $`L+d_{\mathbb Z_L}(0,k)`$. The additional candidate covers routes that use every cycle edge: such a route must have length at least $`L+d_{\mathbb Z_L}(0,k)`$, and duplicating a shortest zero-to-$`k`$ path in the cycle gives an Euler trail attaining that length. Any route that omits an edge is covered by one of the path cases. This proves the algorithm and formula (7). A straightforward implementation uses $`O(L^2)`$ elementary scans and arithmetic, plus the lamp scan. Faster known bookkeeping is not required by the query lower bound.
 
-These distance calculations depend only on the known group and the computational basis label. In the hard-oracle compiler they can be implemented reversibly, followed by uncomputation. Their gate cost is not an extra call to the unknown input-bit oracle. This distinction is why an unrestricted quantum query lower bound can coexist with substantial known classical or reversible work.
+These distance calculations depend only on the known group and the computational basis label. They belong to the classical work of the geodesic simulator. The lower bound uses the matrix entries of a supplied representation and includes algorithms that perform arbitrary known group arithmetic between calls.
 
 ## 6. Dimension and counted workspace
 
@@ -168,7 +168,7 @@ The hard representation in [Group quantiles](group-quantiles.md) acts on
 d_t=2L_tM_t^{L_t}.
 ```
 
-It consists of a regular group register and one answer qubit, conjugated by the unknown parity gauge. All relations of the finite group are preserved exactly. Its target can be embedded into
+It consists of two regular representation copies, conjugated by independent radial signs in the two copies. The simultaneous conjugation preserves all relations of the finite group. Its target can be embedded into
 
 ```math
 n_t=\left\lceil\log_2(2L_tM_t^{L_t})\right\rceil
@@ -176,8 +176,8 @@ n_t=\left\lceil\log_2(2L_tM_t^{L_t})\right\rceil
 \qquad (8)
 ```
 
-qubits. Invalid binary basis labels may be given a trivial representation block. This is an explicit sufficient width, not a width optimum. Separate work registers used by a simulator or by the bit-query reduction are not target qubits and are not hidden in (8).
+qubits. Invalid binary basis labels may be given a trivial representation block. This is an explicit sufficient width, not a width optimum. The target width in (8) excludes simulator work registers.
 
-The growing width is essential to the stated result. No linear or three-quarter long-time lower bound at a fixed finite target dimension follows from this family. Conversely, the simulator's upper guarantee applies to every supplied finite-dimensional representation of the chosen finite group, rather than only to the regular representation used in the lower bound.
+The lower bound here is along this growing family, with the width in (8). The upper guarantee applies to every supplied finite-dimensional representation of each chosen finite group.
 
 [Model](model.md) · [Group quantiles](group-quantiles.md) · [Wreath-product escape](wreath-product.md)
