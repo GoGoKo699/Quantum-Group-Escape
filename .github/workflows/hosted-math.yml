@@ -1,21 +1,18 @@
-name: Exact Group Escape hosted resume
+name: Exact Group Escape final hosted review
 on:
   pull_request:
     paths:
       - .github/workflows/hosted-math.yml
 permissions:
   contents: read
-  actions: read
 jobs:
   resume:
     if: ${{ github.event.pull_request.head.repo.full_name == github.repository && github.head_ref == 'check/exact-escape-hosted-resume' }}
     runs-on: ubuntu-24.04
     timeout-minutes: 20
     env:
-      SCIENCE_REVISION: 0639993b292bb3158f3ee4f2d76238f0d7eb5a49
-      SCIENCE_TREE: a00904509b9d1d6ede1b281149336458bf4e15ab
-      PRIOR_RUN: '45325046315'
-      PRIOR_ARTIFACT: hosted-math-0639993b292bb3158f3ee4f2d76238f0d7eb5a49
+      SCIENCE_REVISION: a1020ec8afed8eda52f762115446607a2a8a0998
+      SCIENCE_TREE: 6c18114b0b3bb1bee1509d3849130b228fb88c22
     steps:
       - name: Check out the unchanged scientific source
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
@@ -37,43 +34,33 @@ jobs:
           if ! NODE_PATH="$RUNNER_TEMP/math-runtime/node_modules" node -e 'require("playwright").chromium.launch().then(browser => browser.close()).catch(error => { console.error(error.message); process.exitCode = 1; })'; then
             node "$capture_cli" install-deps chromium
           fi
-      - name: Download verified same-source receipts
-        shell: bash
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          test "$(git rev-parse HEAD)" = "$SCIENCE_REVISION"
-          test "$(git rev-parse 'HEAD^{tree}')" = "$SCIENCE_TREE"
-          gh run download "$PRIOR_RUN" --repo "$GITHUB_REPOSITORY" --name "$PRIOR_ARTIFACT" --dir "$RUNNER_TEMP/group-prior"
-          cd "$RUNNER_TEMP/group-prior/hosted-math"
-          sha256sum -c <<'DIGEST'
-          b4f00a6a772538c92ca22d7949d242a4b1036b0f5fa3284d9c65296edb50b3b6  capture-state.json
-          DIGEST
-      - name: Resume only verified captures and retry transient GitHub responses
+      - name: Capture both widths and retry only transient GitHub responses
         shell: bash
         run: |
           export NODE_PATH="$RUNNER_TEMP/math-runtime/node_modules"
-          previous="$RUNNER_TEMP/group-prior/hosted-math"
+          test "$(git rev-parse HEAD)" = "$SCIENCE_REVISION"
+          test "$(git rev-parse 'HEAD^{tree}')" = "$SCIENCE_TREE"
+          resume=()
           mkdir -p "$RUNNER_TEMP/group-resume"
-          for attempt in 1 2 3; do
+          for attempt in 1 2 3 4 5; do
             output="$RUNNER_TEMP/group-resume/attempt-$attempt"
             if node verification/hosted_math/capture_hosted_math.cjs \
               --root "$GITHUB_WORKSPACE" --repository "$GITHUB_REPOSITORY" \
               --revision "$SCIENCE_REVISION" --contract verification/hosted_math/math-contract.json \
-              --resume-from "$previous" --output "$output"; then
+              "${resume[@]}" --output "$output"; then
               jq '{status,revision,tree,viewports:[.viewports[]|{width,status,structural_matches}]}' "$output/hosted-report.json"
               exit 0
             fi
             test -f "$output/capture-state.json"
             jq -e '.failures | length > 0 and all(.category == "transport_failure")' "$output/capture-state.json" >/dev/null
-            previous="$output"
+            resume=(--resume-from "$output")
           done
           exit 1
       - name: Retain captured pages and comparison reports
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
-          name: group-escape-exact-source-resume
+          name: group-escape-exact-source-final
           path: ${{ runner.temp }}/group-resume
           if-no-files-found: error
           retention-days: 14
