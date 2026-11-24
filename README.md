@@ -12,17 +12,21 @@ For a known finite group, let $`D`$ be the shortest-word distance of an endpoint
 R_\eta=\min\{r\in\mathbb Z_{\ge0}:\Pr(D>r)\le\eta\}.
 ```
 
-The worst-case cost of implementing the full random-unitary channel, uniformly over all unknown finite-dimensional representations, obeys
+With at most $`q`$ generator calls on each branch, the exact worst-case unhalved diamond error is $`2\Pr(D>q)`$. The minimum hard cap at error $`\varepsilon`$ is therefore
 
 ```math
-\frac14 R_\varepsilon
-\le Q_G(\mu,\varepsilon)
-\le R_{\varepsilon/2}.
+Q_G(\mu,\varepsilon)=R_{\varepsilon/2}.
 ```
 
-Here $`\varepsilon`$ is the **unhalved diamond error**, and queries are bounded on every execution branch. The two quantiles need not be comparable for an arbitrary endpoint law. Sampling precision uses a separate error allowance.
+With classical stopping, the minimum worst-case expected number of calls is
 
-The upper algorithm samples an endpoint and applies a short representing word. The lower bound permits arbitrary coherent controls, ancillas and adaptive measurements. It conjugates an entire regular representation by one unknown parity gauge, preserving every group relation while turning escape into a quantum parity task. See the [exact theorem and proof](science/group-quantiles.md).
+```math
+\sum_{q\ge0}\max\{\Pr(D>q)-\varepsilon/2,0\}.
+```
+
+One sampler attains the optimal probability of exceeding every budget $`q`$ at once. It replaces the farthest $`\varepsilon/2`$ of endpoint probability with the identity and applies a shortest word for every retained endpoint. At exact accuracy the expected cost is $`\mathbb E[D]`$. A finite-precision sampler uses a separate error allowance.
+
+The converse permits coherent controls, inverse calls, ancillas, and adaptive measurements. It preserves all group relations while assigning independent signs to copies of the regular representation. Coherence between two copies at distance $`D`$ requires sign degree $`2D`$. A $`q`$-call circuit can supply degree at most $`2q`$. See the [exact theorem and proof](science/group-quantiles.md).
 
 A nonabelian example uses four equal-rate unitary jumps: a cursor shift and its inverse, and an integer-lamp update and its inverse. Known relations make updates at translated lamp sites commute. Along explicitly specified growing finite quotients, the optimal fixed-error query cost is
 
@@ -56,7 +60,7 @@ The educational anchor is Andrew M. Childs, [*Lecture Notes on Quantum Algorithm
 
 The sublinear resource is serial calls to unknown generators. The direct sampler still processes order $`t`$ classical events; its work can be performed before receiving the quantum input. This account establishes oracle-call fast forwarding, with an explicit classical cost. A total-runtime or hardware advantage is not established.
 
-The lower bound ranges over representations and dimensions; it does not apply to every individual representation. The wreath example uses groups and finite target widths that grow with time. A sufficient hard-instance width is $`O_\varepsilon(t\log(t+2))`$ qubits. Exact algebraic relations, inverse/controlled generator access, full-channel output, and a hard query cap are material assumptions. No geometric locality or optimal joint time-and-precision claim is made.
+The exact minimax statements are uniform over finite target dimensions. The converse also gives explicit finite-dimension bounds. The wreath example uses groups and finite target widths that grow with time. A sufficient hard-instance width is $`O_\varepsilon(t\log(t+2))`$ qubits. The model supplies exact algebraic relations, inverse and controlled generator access, and charges every invoked controlled query. The expected-cost statement uses a classically recorded stopping time.
 
 Known group arithmetic, word finding, classical storage, probability evaluation and physical realization of each generator are charged separately in the [resource account](science/algorithms-and-resources.md). The construction uses ordinary classical sampling and control, without a QRAM or a free loader for unknown classical data.
 

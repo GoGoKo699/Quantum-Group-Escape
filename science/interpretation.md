@@ -21,27 +21,13 @@ The group and its relations are known. The representation matrices are available
 
 Compressing words gives an algorithm, but by itself does not rule out a faster coherent procedure. The converse addresses every algorithm in the declared oracle model, including algorithms with protected ancillas, measurements, adaptive control, and arbitrary known interleavings.
 
-Its hard family starts with the regular representation and conjugates every generator by the same unknown prefix-parity gauge. A step changes distance from the identity by at most one, so its answer update requires at most one Boolean input bit. A distant endpoint contains the parity of many bits. One common conjugation preserves every group relation, including relations around cycles. The construction therefore stays inside the representation promise while importing the quantum parity lower bound.
+The hard family assigns independent radial signs to several copies of the regular representation. One conjugation preserves all group relations. The simulator gains at most one sign per oracle call on each side of a density-matrix entry. At a distant endpoint, the ideal output has coherence between different copies. Matching that coherence requires the product of both sign strings, of degree twice the endpoint distance. Averaging the corresponding output test over the unknown signs gives the exact distance-tail obstruction.
 
-This makes the lower bound a statement about the unknown representation interface. It is not a restriction to algorithms that explicitly generate trajectories or compile geodesics.
+## The effect of the error budget
 
-## Quantiles, rather than an unrestricted mean law
+Write $`\beta_q=\Pr(D>q)`$ for the tail of the endpoint word distance. At a hard cap $`q`$, the optimum unhalved diamond error is $`2\beta_q`$. The smallest allowable cap uses the first radius with $`\beta_q\le\varepsilon/2`$. If the simulator can stop at a classically recorded query count, the optimum mean is $`\sum_q(\beta_q-\varepsilon/2)_+`$. One geodesic sampler achieves it by spending the error allowance on the farthest draws.
 
-Write $`D=|g|_S`$ for the word distance of $`g\sim\mu`$. With unhalved diamond error $`\varepsilon`$, the exact-law bounds are
-
-```math
-\Pr(D>r)\le\varepsilon/2
-\quad\Longrightarrow\quad Q\le r,
-```
-
-```math
-\Pr(D\ge m)>\varepsilon
-\quad\Longrightarrow\quad Q\ge m/4.
-```
-
-Sampling and compilation inaccuracies consume a separately reserved part of the error budget. The query cap is a maximum on every branch. The two bounds compare tail thresholds at different error levels; they do not assert equality of those thresholds for an arbitrary distribution.
-
-An expected distance alone need not describe the optimum. For example, a law can put probability at most $`\varepsilon/2`$ on a very distant element and all remaining probability on the identity. Returning the identity channel already meets the error target, even though the mean distance can grow along a family of groups. A mean escape law becomes an optimal query law only after the needed upper-tail and lower-tail estimates are proved.
+For example, suppose a distance-$`L`$ endpoint has probability $`b`$ and the identity gets the rest. The hard cap jumps from zero to $`L`$ as $`b`$ crosses $`\varepsilon/2`$. The expected cost instead rises as $`L(b-\varepsilon/2)_+`$. This is why the raw mean distance can be large even when an identity channel already attains the target accuracy. Sampling and compilation inaccuracies require a separate share of the error budget.
 
 ## Four bounded jumps and a three-quarter power
 
@@ -60,7 +46,7 @@ The classical escape behavior is established random-walk mathematics. The added 
 
 The result reduces serial calls to the unknown generators. The direct sampler still processes order $`t`$ classical jump events, and normal-form arithmetic and finite-bit sampling have their own costs. Thus this implementation establishes oracle-call fast forwarding; it does not establish a reduction of total runtime, energy, or hardware cost. There is no QRAM assumption or free loader for an arbitrary classical table.
 
-The asymptotic example uses finite groups and finite-dimensional targets whose sizes increase with $`t`$. For a fixed finite group, word distance is bounded by its diameter, so the displayed power law cannot describe unrestricted long-time growth at that fixed group. The theorem also supplies no geometric locality guarantee for the unknown representation matrices and no optimal joint time-and-precision law.
+The asymptotic example uses finite groups and finite-dimensional targets whose sizes increase with $`t`$. For a fixed finite group, word distance is bounded by its diameter, so the displayed power law cannot describe unrestricted long-time growth at that fixed group. The exact query formulas apply to every endpoint law along the family. Obtaining an explicit joint dependence on time and precision requires quantitative escape tails for that law.
 
 The target is the reduced quantum channel. Retaining a specified coherent bath, an emission record, or a particular physical dilation is a different output requirement. Endpoint compression need not preserve such extra outputs. Exact group relations are part of the input promise; an approximate-relation model needs an additional error analysis before the same compilation can be used.
 

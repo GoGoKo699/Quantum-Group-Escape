@@ -27,7 +27,7 @@ Two fair classical bits choose the row. Apply its word to the supplied input and
 
 The maximum call count is two. There is no success condition or postselection, and the implementation works when the input is entangled with a reference.
 
-Now impose a one-call cap. Replace the $`j=2`$ row by the identity and keep the other rows. This changes a set of classical choices of probability $`1/4`$. In the unhalved diamond convention used here,
+Now impose a one-call cap. Replace the $`j=2`$ row by the identity and keep the other rows. This changes a set of classical choices of probability $`1/4`$. In the unhalved diamond convention,
 
 ```math
 \lVert \widetilde\Phi-\Phi\rVert _\diamond
@@ -35,34 +35,29 @@ Now impose a one-call cap. Replace the $`j=2`$ row by the identity and keep the 
 \le\frac12.
 ```
 
-Thus the one-call cap certifies error at most $`1/2`$; it does not certify error $`1/100`$. The factor of two arises because two quantum channels can have diamond distance two. The cap retains every run as a valid output channel. It does not discard and renormalize the unwanted row.
+The one-call cap gives error at most $`1/2`$. The factor of two comes from the maximum diamond distance between two channels. Every run delivers a channel, including those with the replacement.
 
-### The same example can carry hidden parity
+### Why a one-call cap cannot improve this error
 
-The upper construction does not prove optimality. To see the lower-bound mechanism, use a particular admissible representation on a four-state group register and one answer qubit. Let $`x_1,x_2`$ be unknown bits and assign these capped distance parities:
+Use $`K`$ four-state group blocks. In block $`i`$, assign independent unknown signs $`x_{i,1},x_{i,2}\in\{-1,1\}`$ to the first and second outward steps. The basis signs, in the order $`e,a,a^2,a^3`$, are $`1,x_{i,1},x_{i,1}x_{i,2},x_{i,1}`$. Conjugation of the cyclic shift by this diagonal sign change preserves $`U^4=I`$. Each generator matrix entry uses at most one sign because a step changes word length by at most one.
 
-| Group label $`j`$ | Distance from 0 | $`F_x(\ell(j))`$ | Answer flip on $`j\mapsto j+1\pmod4`$ |
-|---:|---:|---|---|
-| 0 | 0 | 0 | $`x_1`$ |
-| 1 | 1 | $`x_1`$ | $`x_2`$ |
-| 2 | 2 | $`x_1\oplus x_2`$ | $`x_2`$ |
-| 3 | 1 | $`x_1`$ | $`x_1`$ |
+Start in an equal superposition of the identity labels across the blocks. If the endpoint is $`a^2`$, the ideal state is an equal superposition of the $`a^2`$ labels, with phase $`x_{i,1}x_{i,2}`$ in block $`i`$. Between two different blocks the corresponding density-matrix entry carries a product of four independent signs. After one call each density-matrix entry has degree at most two in the signs, even after known operations. Orthogonality of products of independent signs therefore makes the average matching coherence vanish for any one-call simulator.
 
-The gauged generator shifts the group label and performs the indicated answer flip. Around the complete cycle each input bit is flipped twice, so the fourth power is still exactly the identity. Equivalently, this generator is a common conjugation of the ordinary cyclic shift. The unknown bits have changed the representation without breaking its group relation.
+To read that coherence, the proof measures the projection onto the ideal signed superposition and subtracts $`1/K`$ times the probability of the $`a^2`$ label. The subtraction removes the part due to diagonal probabilities alone. The average simulator score is zero, while the ideal score is $`(1-1/K)/4`$. The score has spectral range of length one, so an unhalved diamond error $`\varepsilon`$ allows a score change of at most $`\varepsilon/2`$. Representations of arbitrarily large finite $`K`$ then force $`\varepsilon\ge1/2`$ for any uniform one-call procedure.
 
-Starting from group label zero and answer zero, the ideal channel outputs the full parity $`x_1\oplus x_2`$ at label two. That label occurs with probability $`1/4`$. Measure the group label and answer; use the answer at label two and an independent fair bit elsewhere. The parity success probability is $`1/2+(1/4)/2=5/8`$ on every input string. A channel approximation of unhalved diamond error $`1/100`$ retains success at least $`0.62`$.
+### The expected cost can be lower than the cap
 
-Each controlled gauged-generator call can be compiled using two ordinary input-bit queries: compute which bit is needed, query it into a buffer, conditionally flip the answer, and query again to erase the buffer. Childs's reversible-computation and query-polynomial sections explain the ingredients. The general proof gives a lower bound of one supplied-generator call after integer rounding in this toy example; it does not claim that this small example attains every constant in the general bracket. Its purpose is to exhibit the operation, cost, delivered channel, error convention, and measured parity flag in one setting.
+The exact sampler uses one call on average. For $`0\le\varepsilon\le1/2`$, replace probability mass $`\varepsilon/2`$ from the two-call row by the identity. This saves $`2(\varepsilon/2)`$ calls on average. The [expected-query theorem](../science/group-quantiles.md#classical-stopping-and-the-exact-mean) proves that $`1-\varepsilon`$ is optimal. For $`\varepsilon\lt1/2`$, the hard cost stays at two even as the optimal expected cost falls.
 
 ## 2. The source sections that lead into the project
 
 | Childs locator | Use here | Project source |
 |---|---|---|
-| §§1.1–1.2, pp. 1–2; §1.4, pp. 2–3 | Registers, unitary gates, and restoring temporary work | [Model](../science/model.md); [two-query compiler](../science/group-quantiles.md#two-ordinary-bit-queries-implement-a-controlled-generator) |
+| §§1.1–1.2, pp. 1–2; §1.4, pp. 2–3 | Registers, unitary gates, and restoring temporary work | [Model](../science/model.md); [representation and generator matrices](../science/group-quantiles.md#radial-signs-in-an-exact-representation) |
 | §2.1, p. 7 | Tracking errors through a composition | [Implementation error budget](../science/algorithms-and-resources.md#finite-precision-and-the-full-error-budget) |
-| §11.1, pp. 47–48 | Representations, regular actions, and common changes of basis | [Representation-preserving gauge](../science/group-quantiles.md#a-representation-that-encodes-distance-parity) |
+| §11.1, pp. 47–48 | Representations, regular actions, and changes of basis | [Radial sign gauge](../science/group-quantiles.md#radial-signs-in-an-exact-representation) |
 | §§17.1, 17.3, pp. 73, 75 | Distinguishing classical and coherent walk dynamics | [Continuous-time endpoint laws](../science/model.md#continuous-time-laws) |
-| §§21.1–21.3, pp. 97–99; §21.5, pp. 99–100 | Oracle cost, acceptance-polynomial degree, and parity | [Positive-bias converse](../science/group-quantiles.md#positive-bias-suffices-for-the-parity-obstruction) |
+| §§21.1–21.3, pp. 97–99; §21.5, pp. 99–100 | Oracle cost, degree growth, and orthogonality of parity characters | [Coherence measurement](../science/group-quantiles.md#a-measurement-of-distant-coherence) |
 | §§27.1–27.2, p. 133; §28.1, pp. 139–140 | Simulation tasks and a parity-based obstruction | [Full theorem](../science/group-quantiles.md); [interpretation](../science/interpretation.md) |
 
 The algebraic route does not require implementing a group Fourier transform. The query route does not require a search algorithm. Read the indicated sections for the objects and proof tools that enter this argument, then return to the linked project statements.
@@ -74,13 +69,13 @@ The algebraic route does not require implementing a group Fourier transform. The
 | Known finite group | $`G`$, generators $`S`$, identity $`e`$ | A classical algebraic specification |
 | Representation (written $`\sigma`$ in Childs §11.1) | $`\pi(g)`$ | Unknown unitary matrices respecting all group products |
 | Known left regular action | $`L_g\lvert h\rangle=\lvert gh\rangle`$ | A reference construction used in the converse |
-| Oracle input in the parity reduction | $`x=(x_1,\ldots,x_m)`$ | Hidden bits used to instantiate a hard representation |
+| Radial sign variables | $`x_{i,k}\in\{-1,1\}`$ | Independent unknown signs, one for every block and distance step |
 | One supplied query | controlled $`\mathrm{SELECT}_\pi`$ or its inverse | One charged call, including coherent generator selection |
 | Known endpoint law | $`\mu(g)`$ | Classical randomness, not an unknown-data loader |
 | Output channel | $`\Phi_{\pi,\mu}`$ | The transformation on every input and reference |
 | Word length | $`\ell(g)=\lvert g\rvert_S`$ | The fewest supplied generators needed to spell $`g`$ |
 
-A known multiplication table does not reveal the unknown matrices. Likewise, the mathematical existence of a basis change relating two representations does not make that change of basis a free gate. The lower bound exploits precisely this distinction: its common parity conjugation exists, but is not supplied to the simulator.
+The group table gives a reference regular action. The radial signs specify a common conjugation of that action for all generators. Only the conjugated generator oracles are supplied to the simulator.
 
 The output is
 
@@ -95,27 +90,31 @@ There is no requirement that the simulator return its internally sampled endpoin
 
 The selected source is an algorithms anchor. The following statements are supplied locally and should not be assumed merely from its Hamiltonian-simulation chapters.
 
-**Full-channel error.** A density operator $`\rho`$ describes the input state, including classical mixtures. The diamond error tests the implemented map even when that state is correlated with an untouched reference. In the unhalved convention, error $`\varepsilon`$ changes a final event probability by at most $`\varepsilon/2`$. This is the bridge between a simulator guarantee and the parity success calculation. See [the output definition](../science/model.md#the-channel-to-be-implemented).
+**Full-channel error.** A density operator $`\rho`$ describes the input state, including classical mixtures. The diamond error tests the implemented map even when that state is correlated with an untouched reference. In the unhalved convention, error $`\varepsilon`$ changes the expected value of a measurement score with spectral range of length one by at most $`\varepsilon/2`$. See [the output definition](../science/model.md#the-channel-to-be-implemented).
 
 **Tail replacement.** If endpoint choices of total probability $`\beta`$ are replaced by the identity, convexity gives diamond error at most $`2\beta`$. If the classical endpoint sampler itself has total-variation error $`\delta`$, it contributes another $`2\delta`$. These are separately budgeted errors, as in [the resource account](../science/algorithms-and-resources.md).
 
-**Escape quantiles.** Let $`D=\ell(g)`$ for $`g\sim\mu`$. The quantity
+**Hard query cost.** Let $`D=\ell(g)`$ for $`g\sim\mu`$. The quantity
 
 ```math
 R_\eta(\mu)=\min\{r\in\mathbb Z_{\ge0}:\Pr(D>r)\le\eta\}
 ```
 
-is the smallest integer radius outside which at most probability $`\eta`$ remains. The theorem is
+is the smallest integer radius outside which at most probability $`\eta`$ remains. The exact hard cost is
 
 ```math
-\frac14R_\varepsilon(\mu)
-\le Q_G(\mu,\varepsilon)
-\le R_{\varepsilon/2}(\mu).
+Q_G(\mu,\varepsilon)=R_{\varepsilon/2}(\mu).
 ```
 
-Its two sides use different error levels. An expectation alone cannot replace these radii: a rare, very distant endpoint may be discarded within the allowed error while contributing greatly to the mean distance. The general statement and its integer boundary cases are in [Group quantiles](../science/group-quantiles.md).
+The cap $`q`$ attains the requested error exactly when its overflow mass is at most $`\varepsilon/2`$. See [the finite-group theorem](../science/group-quantiles.md#the-finite-group-theorem).
 
-**Positive parity bias.** Childs §21.5 explains why parity still needs half as many ordinary bit queries as input bits when the permitted error is any amount below one half. Here a group-distance event of probability $`p_m>\varepsilon`$ leaves a strictly positive bias after simulation error. The repository's common-conjugation construction shows that this parity instance obeys every known group relation. The factor $`1/4`$ combines the ordinary parity bound with two ordinary bit queries per supplied-generator query.
+**Expected cost under classical stopping.** Stop a copy of the simulator at each integer cutoff $`q`$ for analysis. Completed branches have degree at most $`2q`$. The distance-sensitive score then forces enough probability on branches using more than $`q`$ calls. Summing those requirements gives
+
+```math
+\sum_{q\ge0}\big(\Pr(D>q)-\varepsilon/2\big)_+.
+```
+
+The geodesic procedure attains the sum by redirecting the farthest endpoints to the identity, using a randomized replacement at the boundary distance if needed. At zero error this sum is the original mean distance. See [the expected-query proof](../science/group-quantiles.md#classical-stopping-and-the-exact-mean).
 
 ## 5. From one cyclic example to the nonabelian application
 
