@@ -1,75 +1,79 @@
-name: Scientific and hosted verification
-
+name: Exact Group Escape hosted resume
 on:
   pull_request:
     paths:
-      - '**.md'
-      - 'llms.txt'
-      - 'verification/**'
-      - '.github/workflows/hosted-math.yml'
-
+      - .github/workflows/hosted-math.yml
 permissions:
   contents: read
-
-concurrency:
-  group: hosted-math-${{ github.event.pull_request.number }}
-  cancel-in-progress: true
-
+  actions: read
 jobs:
-  capture:
-    if: github.event.pull_request.head.repo.full_name == github.repository
+  resume:
+    if: ${{ github.event.pull_request.head.repo.full_name == github.repository && github.head_ref == 'check/exact-escape-hosted-resume' }}
     runs-on: ubuntu-24.04
-    timeout-minutes: 25
+    timeout-minutes: 20
     env:
-      CAPTURE_REVISION: ${{ github.event.pull_request.head.sha }}
+      SCIENCE_REVISION: 0639993b292bb3158f3ee4f2d76238f0d7eb5a49
+      SCIENCE_TREE: a00904509b9d1d6ede1b281149336458bf4e15ab
+      PRIOR_RUN: '45325046315'
+      PRIOR_ARTIFACT: hosted-math-0639993b292bb3158f3ee4f2d76238f0d7eb5a49
     steps:
-      - name: Check out the exact proposed source
-        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - name: Check out the unchanged scientific source
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
-          ref: ${{ env.CAPTURE_REVISION }}
+          ref: ${{ env.SCIENCE_REVISION }}
           persist-credentials: false
-      - name: Set up Node
-        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
-          node-version: '22'
-      - name: Set up Python
-        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+          node-version: '22.23.5'
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
         with:
-          python-version: '3.12'
-      - name: Run finite scientific checks
-        run: |
-          python -m pip install -r verification/requirements.txt
-          python verification/check_finite_groups.py > "$RUNNER_TEMP/science-results.json"
-      - name: Install the capture runtime
+          python-version: '3.12.16'
+      - name: Install the matching capture runtime
+        shell: bash
         run: |
           npm install --prefix "$RUNNER_TEMP/math-runtime" playwright@1.56.1 mathjax-full@3.2.1
-          node "$RUNNER_TEMP/math-runtime/node_modules/playwright/cli.js" install --with-deps chromium
-      - name: Test representative hosted mathematics
+          capture_cli="$RUNNER_TEMP/math-runtime/node_modules/playwright/cli.js"
+          node "$capture_cli" install chromium
+          if ! NODE_PATH="$RUNNER_TEMP/math-runtime/node_modules" node -e 'require("playwright").chromium.launch().then(browser => browser.close()).catch(error => { console.error(error.message); process.exitCode = 1; })'; then
+            node "$capture_cli" install-deps chromium
+          fi
+      - name: Download verified same-source receipts
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          test "$(git rev-parse HEAD)" = "$SCIENCE_REVISION"
+          test "$(git rev-parse 'HEAD^{tree}')" = "$SCIENCE_TREE"
+          gh run download "$PRIOR_RUN" --repo "$GITHUB_REPOSITORY" --name "$PRIOR_ARTIFACT" --dir "$RUNNER_TEMP/group-prior"
+          cd "$RUNNER_TEMP/group-prior/hosted-math"
+          sha256sum -c <<'DIGEST'
+          b4f00a6a772538c92ca22d7949d242a4b1036b0f5fa3284d9c65296edb50b3b6  capture-state.json
+          DIGEST
+      - name: Resume only verified captures and retry transient GitHub responses
+        shell: bash
         run: |
           export NODE_PATH="$RUNNER_TEMP/math-runtime/node_modules"
-          node verification/hosted_math/probe_hosted_math.cjs \
-            --root "$GITHUB_WORKSPACE" \
-            --repository "$GITHUB_REPOSITORY" \
-            --revision "$CAPTURE_REVISION" \
-            --page README.md \
-            --output "$RUNNER_TEMP/hosted-probe"
-      - name: Compare every hosted mathematical expression
-        run: |
-          export NODE_PATH="$RUNNER_TEMP/math-runtime/node_modules"
-          node verification/hosted_math/capture_hosted_math.cjs \
-            --root "$GITHUB_WORKSPACE" \
-            --repository "$GITHUB_REPOSITORY" \
-            --revision "$CAPTURE_REVISION" \
-            --contract verification/hosted_math/math-contract.json \
-            --output "$RUNNER_TEMP/hosted-math"
-      - name: Retain captures and comparison reports
+          previous="$RUNNER_TEMP/group-prior/hosted-math"
+          mkdir -p "$RUNNER_TEMP/group-resume"
+          for attempt in 1 2 3; do
+            output="$RUNNER_TEMP/group-resume/attempt-$attempt"
+            if node verification/hosted_math/capture_hosted_math.cjs \
+              --root "$GITHUB_WORKSPACE" --repository "$GITHUB_REPOSITORY" \
+              --revision "$SCIENCE_REVISION" --contract verification/hosted_math/math-contract.json \
+              --resume-from "$previous" --output "$output"; then
+              jq '{status,revision,tree,viewports:[.viewports[]|{width,status,structural_matches}]}' "$output/hosted-report.json"
+              exit 0
+            fi
+            test -f "$output/capture-state.json"
+            jq -e '.failures | length > 0 and all(.category == "transport_failure")' "$output/capture-state.json" >/dev/null
+            previous="$output"
+          done
+          exit 1
+      - name: Retain captured pages and comparison reports
         if: always()
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
-          name: hosted-math-${{ env.CAPTURE_REVISION }}
-          path: |
-            ${{ runner.temp }}/hosted-probe
-            ${{ runner.temp }}/hosted-math
-            ${{ runner.temp }}/science-results.json
+          name: group-escape-exact-source-resume
+          path: ${{ runner.temp }}/group-resume
           if-no-files-found: error
           retention-days: 14
