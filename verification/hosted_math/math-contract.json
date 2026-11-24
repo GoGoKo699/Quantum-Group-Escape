@@ -127,7 +127,7 @@
     },
     {
       "path": "science/finite-quotients.md",
-      "index": 55,
+      "index": 53,
       "source_sha256": "4f7d6e7fa447688e3aa92b3a7c3810552bcc5eb761f7b9f90638608e4b986104",
       "required_text": [
         "≥mt"
@@ -135,7 +135,7 @@
     },
     {
       "path": "science/finite-quotients.md",
-      "index": 56,
+      "index": 54,
       "source_sha256": "8689dcb89bcef8d8f48eed22c1c30567134f34cffb7ee7ff5963041ca5b3a0df",
       "required_text": [
         "QGt(t,ε)=Θε(t3/4)",
@@ -146,7 +146,7 @@
     },
     {
       "path": "science/finite-quotients.md",
-      "index": 76,
+      "index": 74,
       "source_sha256": "418239cfc1d10a881d83674afde9650ebbbb5c2f204c15c436f38a280cd5fd09",
       "required_text": [
         "nt",

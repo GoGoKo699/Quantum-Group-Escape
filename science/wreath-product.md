@@ -176,7 +176,7 @@ a_\delta=\frac{\sqrt{3\delta}}{4\sqrt2},
 \qquad b_\delta=\frac4\delta.
 ```
 
-For a signed Poisson difference $`Z`$ of variance $`\lambda\ge1`$, (3) and Paley–Zygmund give
+For a signed Poisson difference *Z* of variance $`\lambda\ge1`$, (3) and Paley–Zygmund give
 
 ```math
 \Pr\{Z^2\ge\lambda/2\}

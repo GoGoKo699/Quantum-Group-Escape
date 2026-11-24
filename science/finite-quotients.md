@@ -97,14 +97,14 @@ Equations (4)–(5) imply
 
 Thus the [group-quantile upper bound](group-quantiles.md) yields a simulator with at most $`q_t`$ supplied-generator calls and unhalved diamond error at most $`\epsilon`$. As always in that theorem, probability generation and known group computations have their own classical costs.
 
-For the lower bound, fix $`\zeta=1/20`$ in (12) of [the wreath-product analysis](wreath-product.md#5-a-high-lower-escape-quantile). There are absolute constants $`c>0`$ and $`T\lt \infty`$ such that
+For the lower bound, fix $`\zeta=1/20`$ in (12) of [the wreath-product analysis](wreath-product.md#5-a-high-lower-escape-quantile). There are an absolute constant $`c>0`$ and a finite threshold *T* such that
 
 ```math
 \Pr\{D_t\ge ct^{3/4}\}\ge\frac{17}{20}
 \qquad(t\ge T).
 ```
 
-Let $`m_t=\lfloor ct^{3/4}\rfloor`$. For $`t\ge T`$ and $`m_t\ge1`$,
+Let $`m_t=\lfloor ct^{3/4}\rfloor`$. Once time reaches *T* and $`m_t\ge1`$,
 
 ```math
 \Pr\{\overline D_t\ge m_t\}
