@@ -38,6 +38,14 @@ Q(t,\varepsilon)=\Theta_\varepsilon(t^{3/4})
 
 The [occupation-time proof](science/wreath-product.md) establishes the required escape quantiles, and the [finite-quotient proof](science/finite-quotients.md) supplies finite groups, metric preservation and dimension bounds. The classical escape exponent and the existence of intermediate Lindblad simulation exponents are established antecedents; [related work](references/related-work.md) identifies the added oracle-level statement.
 
+## Run endpoint compression
+
+1. **Sample the endpoint on a classical computer.** Use the known endpoint law. For the continuous-time walk, draw the [capped Poisson event count](science/algorithms-and-resources.md#capped-poisson-trajectory-sampling), draw that many generator labels, and multiply them in the known group. Return the input on overflow.
+2. **Choose which endpoint to apply.** For a [hard call cap](science/algorithms-and-resources.md#a-hard-query-cap), compute a shortest word or use a certified short-word routine with its own length bound. Return the input when the chosen word exceeds the cap. For [optimal expected cost](science/algorithms-and-resources.md#trimming-for-the-exact-expected-cost), use shortest words and redirect the allowed farthest endpoint mass to the identity. Use a classical random draw if the cutoff splits a distance shell. Reserve error for finite probabilities, time rounding, and gate implementation.
+3. **Apply the retained word to the supplied quantum input.** For an algebraic product in a left representation, apply the supplied generator or inverse gates from the rightmost factor to the leftmost. Use the classical draws to control the gates and return the quantum register. Averaging this output over the draws gives the simulated evolution.
+
+Charge the classical sampling, word computation, and storage alongside the implementation of each invoked generator. The [error budget](science/algorithms-and-resources.md#finite-precision-and-the-full-error-budget) gives one finite allocation.
+
 ## Read the account
 
 | Reader's question | Authoritative route |
