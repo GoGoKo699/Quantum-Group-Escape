@@ -1,0 +1,14 @@
+{
+  "README.md": [
+    "Run endpoint compression"
+  ],
+  "science/algorithms-and-resources.md": [
+    "A hard query cap",
+    "Trimming for the exact expected cost",
+    "Finite precision and the full error budget",
+    "A computable short word for the wreath family"
+  ],
+  "learning/childs-bridge.md": [
+    "1. A complete four-element example"
+  ]
+}
